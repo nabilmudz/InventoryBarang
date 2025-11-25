@@ -1,21 +1,19 @@
-package dao.impl;
+package dao.transaksi;
 
-import config.DBConnection;
-import dao.TransaksiDAO;
+import dao.BaseDAO;
 import models.Transaksi;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransaksiDAOImpl implements TransaksiDAO {
+public class TransaksiDAOImpl extends BaseDAO<Transaksi> implements TransaksiDAO {
 
     @Override
-    public void create(Transaksi t) throws Exception {
+    public void insert(Transaksi t) throws Exception {
         String sql = "INSERT INTO transaksi (barang_id, qty, jenis, tanggal, created_by, catatan) VALUES (?, ?, ?, ?, ?, ?)";
-        Connection conn = DBConnection.getInstance().getConnection();
-
         PreparedStatement ps = conn.prepareStatement(sql);
+
         ps.setInt(1, t.getBarangId());
         ps.setInt(2, t.getQty());
         ps.setString(3, t.getJenis());
@@ -30,7 +28,6 @@ public class TransaksiDAOImpl implements TransaksiDAO {
     public List<Transaksi> findAll() throws Exception {
         List<Transaksi> list = new ArrayList<>();
         String sql = "SELECT * FROM transaksi";
-        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -47,4 +44,8 @@ public class TransaksiDAOImpl implements TransaksiDAO {
         }
         return list;
     }
+
+    @Override public void update(Transaksi t) {}
+    @Override public void delete(int id) {}
+    @Override public Transaksi findById(int id) { return null; }
 }

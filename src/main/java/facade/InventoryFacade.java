@@ -1,20 +1,21 @@
 package facade;
 
-import java.util.List;
-
 import models.Transaksi;
-import services.TransaksiService;
-import services.impl.TransaksiServiceImpl;
+import services.transaksi.TransaksiService;
+import services.transaksi.TransaksiServiceImpl;
+
+import java.util.List;
 
 public class InventoryFacade {
 
     private final TransaksiService transaksiService = new TransaksiServiceImpl();
 
-    public void createTransaksi(Transaksi t) throws Exception {
-        transaksiService.createTransaksi(t);
+    public void addTransaksi(Transaksi t) throws Exception {
+        transaksiService.create(t);
     }
 
-    public List<Transaksi> getAllTransaksi() throws Exception {
+    public List<Transaksi> listTransaksi() throws Exception {
         return transaksiService.getAll();
     }
 }
+

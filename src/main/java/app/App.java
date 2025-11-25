@@ -1,3 +1,4 @@
+package app;
 
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public class App {
                     "testing insert hardcoded"
             );
 
-            facade.createTransaksi(t);
+            facade.addTransaksi(t);
             System.out.println("Transaksi berhasil dimasukkan!");
 
         } catch (Exception e) {
