@@ -1,8 +1,8 @@
-package main.java.dao;
+package dao;
 
 import java.sql.Connection;
 
-import main.java.config.DBConnection;
+import config.DBConnection;
 
 public abstract class BaseDAO {
     protected Connection conn;

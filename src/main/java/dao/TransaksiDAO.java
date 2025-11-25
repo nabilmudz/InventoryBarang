@@ -1,8 +1,8 @@
-package main.java.dao;
+package dao;
 
 import java.util.List;
 
-import main.java.models.Transaksi;
+import models.Transaksi;
 
 public interface TransaksiDAO {
     void create(Transaksi transaksi) throws Exception;

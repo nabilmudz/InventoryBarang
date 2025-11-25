@@ -1,1 +1,1 @@
-package main.java.ui;
+package ui;

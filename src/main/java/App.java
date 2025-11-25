@@ -1,8 +1,8 @@
-package main.java;
+
 import java.util.Date;
 
-import main.java.facade.InventoryFacade;
-import main.java.models.Transaksi;
+import facade.InventoryFacade;
+import models.Transaksi;
 
 public class App {
     public static void main(String[] args) {

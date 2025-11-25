@@ -1,1 +1,1 @@
-package main.java.dao;
+package dao;

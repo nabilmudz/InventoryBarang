@@ -1,1 +1,1 @@
-package main.java.interfaces;
+package interfaces;

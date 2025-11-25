@@ -34,30 +34,7 @@ mvn -version
 ```
 MySQL berjalan (mis. localhost:3306) dan kredensial database tersedia.
 
-3. Struktur Proyek
-text
-src/
- └── main/
-     ├── java/
-     │    ├── App.java
-     │    ├── config/
-     │    │     └── DBConnection.java
-     │    ├── dao/
-     │    │     ├── BaseDAO.java
-     │    │     ├── CrudDAO.java
-     │    │     ├── impl/
-     │    │     ├── BarangDAO.java
-     │    │     ├── SupplierDAO.java
-     │    │     └── TransaksiDAO.java
-     │    ├── models/
-     │    ├── services/
-     │    ├── facade/
-     │    ├── ui/
-     │    └── utils/
-     └── resources/
-          └── application.properties
-4. Setup Database
-4.1. Database & Schema
+## 3. Setup Database
 ```sql
 CREATE DATABASE inventory_db;
 USE inventory_db;
@@ -113,7 +90,7 @@ CREATE TABLE transaksi (
 );
 ```
 
-5. Konfigurasi application.properties
+## 4. Konfigurasi application.properties
 src/main/resources/application.properties:
 properties
 ```bash
@@ -123,9 +100,9 @@ db.password=
 ```
 Sesuaikan nilai di atas dengan environment Anda.
 
-6. Build
+## 5. Build
 ```bash
 mvn clean install
 ```
-7. Menjalankan Aplikasi
-mvn compile exec:java -Dexec.mainClass=main.java.App
+## 6. Menjalankan Aplikasi
+mvn compile exec:java -Dexec.mainClass=App

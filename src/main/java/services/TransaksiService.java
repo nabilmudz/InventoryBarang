@@ -1,8 +1,8 @@
-package main.java.services;
+package services;
 
 import java.util.List;
 
-import main.java.models.Transaksi;
+import models.Transaksi;
 
 public interface TransaksiService {
     void createTransaksi(Transaksi t) throws Exception;

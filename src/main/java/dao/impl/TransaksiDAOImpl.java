@@ -1,8 +1,8 @@
-package main.java.dao.impl;
+package dao.impl;
 
-import main.java.config.DBConnection;
-import main.java.dao.TransaksiDAO;
-import main.java.models.Transaksi;
+import config.DBConnection;
+import dao.TransaksiDAO;
+import models.Transaksi;
 
 import java.sql.*;
 import java.util.ArrayList;

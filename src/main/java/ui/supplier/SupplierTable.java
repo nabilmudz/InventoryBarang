@@ -1,1 +1,1 @@
-package main.java.ui.supplier;
+package ui.supplier;

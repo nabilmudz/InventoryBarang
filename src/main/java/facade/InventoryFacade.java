@@ -1,10 +1,10 @@
-package main.java.facade;
+package facade;
 
 import java.util.List;
 
-import main.java.models.Transaksi;
-import main.java.services.TransaksiService;
-import main.java.services.impl.TransaksiServiceImpl;
+import models.Transaksi;
+import services.TransaksiService;
+import services.impl.TransaksiServiceImpl;
 
 public class InventoryFacade {
 
