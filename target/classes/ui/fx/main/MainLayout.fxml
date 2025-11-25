@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ui.fx.main.MainController">
+
+<left>
+        <VBox spacing="10" prefWidth="200" style="-fx-background-color: #2b2d42;">
+                <padding>
+                        <Insets top="20" right="10" bottom="20" left="10"/>
+                </padding>
+                
+                <Label text="INVENTARIS" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                
+                <Separator/>
+                
+                <Button text="Dashboard" maxWidth="Infinity"
+                style="-fx-background-color: #3f4261; -fx-text-fill: white;"/>
+                
+                <Button text="Barang" maxWidth="Infinity"
+                style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+                
+                <Button text="Supplier" maxWidth="Infinity"
+                style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+                
+                <Button text="Transaksi"
+                onAction="#showTransaksi"
+                maxWidth="Infinity"
+                style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+                
+                <Button text="Laporan" maxWidth="Infinity"
+                style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+                
+        </VBox>
+</left>
+
+<!-- CONTENT -->
+<center>
+        <StackPane fx:id="contentArea" style="-fx-background-color: #f5f5f5;"/>
+</center>
+
+</BorderPane>
