@@ -12,17 +12,24 @@ public class SupplierDAOImpl extends BaseDAO<Supplier> implements SupplierDAO {
     @Override
     public void insert(Supplier s) throws Exception {
         String sql = "INSERT INTO supplier (nama, kontak, alamat) VALUES (?, ?, ?)";
-        PreparedStatement ps = conn.prepareStatement(sql);
+        PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         ps.setString(1, s.getNama());
         ps.setString(2, s.getKontak());
         ps.setString(3, s.getAlamat());
 
         ps.executeUpdate();
+
+        // 🔥 Ambil ID yang baru dibuat
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            s.setId(rs.getInt(1));
+        }
     }
 
+
     @Override
-    public List<Supplier> FindAll() throws Exception {
+    public List<Supplier> findAll() throws Exception {
         List<Supplier> list = new ArrayList<>();
         String sql = "SELECT * FROM supplier";
 
@@ -43,8 +50,8 @@ public class SupplierDAOImpl extends BaseDAO<Supplier> implements SupplierDAO {
     }
 
     @Override
-    public void update(supplier s) throws Exception{
-        String sql = "UPDATE supplier SET nama = ?, kontak = ?, alamat = ?, WHERE id = ?";
+    public void update(Supplier s) throws Exception{
+        String sql = "UPDATE supplier SET nama = ?, kontak = ?, alamat = ? WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setString(1, s.getNama());
@@ -64,9 +71,9 @@ public class SupplierDAOImpl extends BaseDAO<Supplier> implements SupplierDAO {
     }
 
     @Override
-    public supplier findById(int id) throws Exception{
+    public Supplier findById(int id) throws Exception{
         String sql = "SELECT * FROM supplier WHERE id = ?";
-        PreparedStatement ps = conn.preparedStatement(sql);
+        PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
@@ -87,11 +94,11 @@ public class SupplierDAOImpl extends BaseDAO<Supplier> implements SupplierDAO {
 
     @Override
     public Supplier findByKontak(String nama, String kontak) throws Exception{
-        String sql = "SELECT * FROM supplier nama = ?, AND kontak = ?";
-        PreparedStatement ps = conn.preparedStatement(sql);
+        String sql = "SELECT * FROM supplier WHERE nama = ? AND kontak = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setString(1, nama);
-        ps.setKontak(2, kontak);
+        ps.setString(2, kontak);
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
@@ -110,8 +117,8 @@ public class SupplierDAOImpl extends BaseDAO<Supplier> implements SupplierDAO {
 
     @Override
     public boolean existInBarang(int supplierId) throws Exception{
-        String sql = "SELECT COUNT(*) FROM barang WHEN supplier_id = ?";
-        PreparedStatement ps = conn.preparedStatement(sql);
+        String sql = "SELECT COUNT(*) FROM barang WHERE supplier_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setInt(1, supplierId);
         ResultSet rs = ps.executeQuery();
