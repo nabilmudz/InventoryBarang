@@ -42,6 +42,8 @@ public class TransaksiDAOImpl extends BaseDAO<Transaksi> implements TransaksiDAO
             t.setCatatan(rs.getString("catatan"));
             list.add(t);
         }
+
+        System.out.println("[DEBUG] TransaksiDAOImpl.findAll() rows = " + list.size());
         return list;
     }
 

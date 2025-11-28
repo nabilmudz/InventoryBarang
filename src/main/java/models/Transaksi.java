@@ -10,6 +10,9 @@ public class Transaksi {
     private Date tanggal;
     private Integer createdBy;
     private String catatan;
+    
+    public static final String JENIS_MASUK  = "MASUK";
+    public static final String JENIS_KELUAR = "KELUAR";
 
     public Transaksi() {}
 

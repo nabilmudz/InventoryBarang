@@ -1,26 +1,19 @@
 package app;
 
-import java.util.Date;
-
 import facade.InventoryFacade;
-import models.Transaksi;
 
 public class App {
     public static void main(String[] args) {
         try {
             InventoryFacade facade = new InventoryFacade();
 
-            Transaksi t = new Transaksi(
-                    1,              // barang_id
-                    5,              // qty
-                    "MASUK",        // jenis
-                    new Date(),     // tanggal
-                    1,              // created_by
-                    "testing insert hardcoded"
-            );
+            // contoh: transaksi MASUK barang id 1, qty 5, user id 1
+            facade.addTransaksiMasuk(1, 5, 1, "testing transaksi masuk hardcoded");
+            System.out.println("Transaksi MASUK berhasil!");
 
-            facade.addTransaksi(t);
-            System.out.println("Transaksi berhasil dimasukkan!");
+            // contoh: transaksi KELUAR barang id 1, qty 2, user id 1
+            facade.addTransaksiKeluar(1, 2, 1, "testing transaksi keluar");
+            System.out.println("Transaksi KELUAR berhasil!");
 
         } catch (Exception e) {
             e.printStackTrace();
