@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: services.supplier.SupplierServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.056 s <<< FAILURE! -- in services.supplier.SupplierServiceImplTest
+services.supplier.SupplierServiceImplTest.testCreate -- Time elapsed: 0.004 s <<< ERROR!
+java.lang.Exception: Supplier dengan nama dan kontak tersebut sudah ada
+	at services.supplier.SupplierServiceImpl.create(SupplierServiceImpl.java:25)
+	at services.supplier.SupplierServiceImplTest.testCreate(SupplierServiceImplTest.java:23)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+services.supplier.SupplierServiceImplTest.testGetById -- Time elapsed: 0.010 s <<< ERROR!
+java.lang.Exception: Supplier dengan ID 1 tidak ditemukan
+	at services.supplier.SupplierServiceImpl.getById(SupplierServiceImpl.java:74)
+	at services.supplier.SupplierServiceImplTest.testGetById(SupplierServiceImplTest.java:31)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+services.supplier.SupplierServiceImplTest.testUpdate -- Time elapsed: 0.005 s <<< ERROR!
+java.lang.Exception: Supplier dengan ID 1 tidak ditemukan
+	at services.supplier.SupplierServiceImpl.getById(SupplierServiceImpl.java:74)
+	at services.supplier.SupplierServiceImplTest.testUpdate(SupplierServiceImplTest.java:40)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

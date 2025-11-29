@@ -7,8 +7,12 @@ ui\fx\barang\BarangController.class
 ui\fx\main\MainController$ControllerConsumer.class
 ui\fx\main\MainController.class
 dao\CrudDAO.class
+dao\supplier\SupplierDAO.class
+services\supplier\SupplierService.class
+services\supplier\SupplierServiceImpl.class
 dao\transaksi\TransaksiDAO.class
 ui\fx\supplier\SupplierController.class
+dao\supplier\SupplierDAOImpl.class
 services\transaksi\TransaksiService.class
 ui\fx\transaksi\TransaksiController.class
 services\transaksi\TransaksiServiceImpl.class
@@ -19,3 +23,4 @@ exception\InventoryException.class
 ui\fx\main\MainApp.class
 exception\ValidationException.class
 models\Transaksi.class
+models\Supplier.class
