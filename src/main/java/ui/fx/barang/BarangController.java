@@ -3,9 +3,9 @@ package ui.fx.barang;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import model.Barang;
-import service.BarangService;
-import service.BarangServiceImpl;
+import models.Barang;
+import services.barang.BarangService;
+import services.barang.BarangServiceImpl;
 
 public class BarangController {
 

@@ -1,6 +1,6 @@
 package dao.barang;
 
-import model.Barang;
+import models.Barang;
 import java.util.List;
 
 public interface BarangDAO {

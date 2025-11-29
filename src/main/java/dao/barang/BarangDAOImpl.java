@@ -1,7 +1,7 @@
 package dao.barang;
 
-import model.Barang;
-import util.DBConnection;
+import models.Barang;
+import config.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ public class BarangDAOImpl implements BarangDAO {
     public boolean insert(Barang barang) {
         String sql = "INSERT INTO barang (nama, stok, harga, supplier_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+           try (Connection conn = DBConnection.getInstance().getConnection();
+               PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, barang.getNama());
             ps.setInt(2, barang.getStok());
@@ -35,8 +35,8 @@ public class BarangDAOImpl implements BarangDAO {
     public boolean update(Barang barang) {
         String sql = "UPDATE barang SET nama=?, stok=?, harga=?, supplier_id=?, updated_at=? WHERE id=?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+           try (Connection conn = DBConnection.getInstance().getConnection();
+               PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, barang.getNama());
             ps.setInt(2, barang.getStok());
@@ -57,8 +57,8 @@ public class BarangDAOImpl implements BarangDAO {
     public boolean delete(int id) {
         String sql = "DELETE FROM barang WHERE id=?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+           try (Connection conn = DBConnection.getInstance().getConnection();
+               PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             return ps.executeUpdate() > 0;
@@ -73,8 +73,8 @@ public class BarangDAOImpl implements BarangDAO {
     public Barang getById(int id) {
         String sql = "SELECT * FROM barang WHERE id=?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+           try (Connection conn = DBConnection.getInstance().getConnection();
+               PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -94,9 +94,9 @@ public class BarangDAOImpl implements BarangDAO {
         List<Barang> list = new ArrayList<>();
         String sql = "SELECT * FROM barang";
 
-        try (Connection conn = DBConnection.getConnection();
-             Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+           try (Connection conn = DBConnection.getInstance().getConnection();
+               Statement st = conn.createStatement();
+               ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
                 list.add(mapToBarang(rs));
