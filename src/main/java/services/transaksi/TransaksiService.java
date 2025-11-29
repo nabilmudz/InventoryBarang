@@ -1,14 +1,14 @@
 package services.transaksi;
 
-import java.util.List;
+import interfaces.Subject;
 import models.Transaksi;
+import java.util.List;
 
-public interface TransaksiService {
-    void createMasuk(int barangId, int qty, Integer createdBy, String catatan) throws Exception;
-    void createKeluar(int barangId, int qty, Integer createdBy, String catatan) throws Exception;
+import exception.InventoryException;
+import exception.ValidationException;
 
-    // kalau mau tetap pakai
-    void create(Transaksi t) throws Exception;
-
-    List<Transaksi> getAll() throws Exception;
+public interface TransaksiService extends Subject {
+    void createMasuk(int barangId, int qty, Integer createdBy, String catatan) throws ValidationException;
+    void createKeluar(int barangId, int qty, Integer createdBy, String catatan) throws ValidationException;
+    List<Transaksi> getAll() throws InventoryException;
 }

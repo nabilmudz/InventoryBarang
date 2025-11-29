@@ -17,13 +17,13 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        showDashboard();   // default halaman awal
+        showTransaksi();
     }
 
-    @FXML
-    private void showDashboard() {
-        loadView("/ui/fx/dashboard/DashboardView.fxml", null);
-    }
+    // @FXML
+    // private void showDashboard() {
+    //     loadView("/ui/fx/dashboard/DashboardView.fxml", null);
+    // }
 
     @FXML
     private void showBarang() {
@@ -38,7 +38,6 @@ public class MainController {
             }
         });
     }
-
 
     @FXML
     private void showTransaksi() {

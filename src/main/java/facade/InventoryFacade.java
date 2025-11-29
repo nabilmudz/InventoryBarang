@@ -6,8 +6,11 @@ import services.supplier.SupplierService;
 import services.supplier.SupplierServiceImpl;
 import services.transaksi.TransaksiService;
 import services.transaksi.TransaksiServiceImpl;
+import interfaces.Observer;
 
 import java.util.List;
+
+import exception.ValidationException;
 
 public class InventoryFacade {
 
@@ -15,17 +18,12 @@ public class InventoryFacade {
     private final TransaksiService transaksiService = new TransaksiServiceImpl();
 
     // API level tinggi, dipakai UI
-    public void addTransaksiMasuk(int barangId, int qty, Integer userId, String catatan) throws Exception {
+    public void addTransaksiMasuk(int barangId, int qty, Integer userId, String catatan) throws ValidationException {
         transaksiService.createMasuk(barangId, qty, userId, catatan);
     }
 
-    public void addTransaksiKeluar(int barangId, int qty, Integer userId, String catatan) throws Exception {
+    public void addTransaksiKeluar(int barangId, int qty, Integer userId, String catatan) throws ValidationException {
         transaksiService.createKeluar(barangId, qty, userId, catatan);
-    }
-
-    // kalau mau tetap pakai versi objek (seperti di App lama)
-    public void addTransaksi(Transaksi t) throws Exception {
-        transaksiService.create(t);
     }
 
     public List<Transaksi> listTransaksi() throws Exception {
@@ -50,5 +48,13 @@ public class InventoryFacade {
 
     public List<Supplier> listSupplier() throws Exception {
         return supplierService.getAll();
+    }
+    
+    public void registerTransaksiObserver(Observer o) {
+        transaksiService.registerObserver(o);
+    }
+
+    public void removeTransaksiObserver(Observer o) {
+        transaksiService.removeObserver(o);
     }
 }
