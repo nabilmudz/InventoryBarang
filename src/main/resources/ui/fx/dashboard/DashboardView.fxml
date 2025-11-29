@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.fx.dashboard.DashboardController"
+      spacing="20"
+      style="-fx-padding: 20;">
+
+    <Label text="Dashboard"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <!-- Summary Cards -->
+    <HBox spacing="20">
+        <!-- Total Barang Card -->
+        <VBox style="-fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-color: #f9f9f9;"
+              prefWidth="180" prefHeight="120">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="Total Barang"
+                   style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <Label fx:id="lblTotalBarang" text="0"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2b2d42;"/>
+        </VBox>
+
+        <!-- Total Supplier Card -->
+        <VBox style="-fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-color: #f9f9f9;"
+              prefWidth="180" prefHeight="120">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="Total Supplier"
+                   style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <Label fx:id="lblTotalSupplier" text="0"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2b2d42;"/>
+        </VBox>
+
+        <!-- Total Transaksi Card -->
+        <VBox style="-fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-color: #f9f9f9;"
+              prefWidth="180" prefHeight="120">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="Total Transaksi"
+                   style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <Label fx:id="lblTotalTransaksi" text="0"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2b2d42;"/>
+        </VBox>
+
+        <!-- Low Stock Card -->
+        <VBox style="-fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-color: #fff3cd;"
+              prefWidth="180" prefHeight="120">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="Stok Rendah (&lt;10)"
+                   style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <Label fx:id="lblLowStock" text="0"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #d39e00;"/>
+        </VBox>
+    </HBox>
+
+    <Separator/>
+
+    <!-- Recent Transactions -->
+    <Label text="Transaksi Terakhir"
+           style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="tableTransaksi" prefHeight="250" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId"       text="ID"         prefWidth="50"/>
+            <TableColumn fx:id="colBarangId" text="Barang"     prefWidth="100"/>
+            <TableColumn fx:id="colQty"      text="Qty"        prefWidth="60"/>
+            <TableColumn fx:id="colJenis"    text="Jenis"      prefWidth="80"/>
+            <TableColumn fx:id="colTanggal"  text="Tanggal"    prefWidth="150"/>
+        </columns>
+    </TableView>
+
+</VBox>

@@ -22,12 +22,20 @@ public class MainController {
 
     @FXML
     private void showDashboard() {
-        loadView("/ui/fx/dashboard/DashboardView.fxml", null);
+        loadView("/ui/fx/dashboard/DashboardView.fxml", controller -> {
+            if (controller instanceof ui.fx.dashboard.DashboardController c) {
+                c.setFacade(facade);
+            }
+        });
     }
 
     @FXML
     private void showBarang() {
-        loadView("/ui/fx/barang/BarangView.fxml", null);
+        loadView("/ui/fx/barang/BarangView.fxml", controller -> {
+            if (controller instanceof ui.fx.barang.BarangController c) {
+                c.setFacade(facade);
+            }
+        });
     }
 
     @FXML
@@ -51,7 +59,11 @@ public class MainController {
 
     @FXML
     private void showLaporan() {
-        loadView("/ui/fx/laporan/LaporanView.fxml", null);
+        loadView("/ui/fx/laporan/LaporanView.fxml", controller -> {
+            if (controller instanceof ui.fx.laporan.LaporanController c) {
+                c.setFacade(facade);
+            }
+        });
     }
 
     private void loadView(String fxmlPath, ControllerConsumer consumer) {

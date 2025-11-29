@@ -18,9 +18,11 @@
                 <Separator/>
                 
                 <Button text="Dashboard" maxWidth="Infinity"
+                onAction="#showDashboard"
                 style="-fx-background-color: #3f4261; -fx-text-fill: white;"/>
                 
                 <Button text="Barang" maxWidth="Infinity"
+                onAction="#showBarang"
                 style="-fx-background-color: transparent; -fx-text-fill: white;"/>
                 
                 <Button text="Supplier"
@@ -35,6 +37,7 @@
                 style="-fx-background-color: transparent; -fx-text-fill: white;"/>
                 
                 <Button text="Laporan" maxWidth="Infinity"
+                onAction="#showLaporan"
                 style="-fx-background-color: transparent; -fx-text-fill: white;"/>
                 
         </VBox>
