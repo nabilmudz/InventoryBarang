@@ -23,8 +23,11 @@
                 <Button text="Barang" maxWidth="Infinity"
                 style="-fx-background-color: transparent; -fx-text-fill: white;"/>
                 
-                <Button text="Supplier" maxWidth="Infinity"
+                <Button text="Supplier"
+                onAction="#showSupplier"
+                maxWidth="Infinity"
                 style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+
                 
                 <Button text="Transaksi"
                 onAction="#showTransaksi"
