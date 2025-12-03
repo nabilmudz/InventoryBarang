@@ -23,7 +23,6 @@ public class InventoryFacade {
         transaksiService.createKeluar(barangId, qty, userId, catatan);
     }
 
-    // kalau mau tetap pakai versi objek (seperti di App lama)
     public void addTransaksi(Transaksi t) throws Exception {
         transaksiService.create(t);
     }
