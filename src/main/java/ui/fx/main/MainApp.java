@@ -10,11 +10,11 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/ui/fx/main/MainLayout.fxml")
+                getClass().getResource("/ui/fx/login/LoginView.fxml")
         );
 
-        Scene scene = new Scene(loader.load(), 1024, 600);
-        stage.setTitle("Inventaris Barang");
+        Scene scene = new Scene(loader.load(), 500, 400);
+        stage.setTitle("Inventaris Barang - Login");
         stage.setScene(scene);
         stage.show();
     }

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
+import models.User;
 import ui.fx.supplier.SupplierController;
 import ui.fx.transaksi.TransaksiController;
 
@@ -14,6 +15,15 @@ public class MainController {
     private StackPane contentArea;
 
     private final InventoryFacade facade = new InventoryFacade();
+    private User currentUser;
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
 
     @FXML
     public void initialize() {
