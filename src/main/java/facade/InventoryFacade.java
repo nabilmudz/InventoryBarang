@@ -26,10 +26,6 @@ public class InventoryFacade {
         transaksiService.createKeluar(barangId, qty, userId, catatan);
     }
 
-    public void addTransaksi(Transaksi t) throws Exception {
-        transaksiService.create(t);
-    }
-
     public List<Transaksi> listTransaksi() throws Exception {
         return transaksiService.getAll();
     }

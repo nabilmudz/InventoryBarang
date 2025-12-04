@@ -9,49 +9,62 @@ import java.util.List;
 
 public class SupplierDAOImpl extends BaseDAO<Supplier> implements SupplierDAO {
 
+    private static final String TABLE = "supplier";
+
+    private static final String COL_ID = "id";
+    private static final String COL_NAMA = "nama";
+    private static final String COL_KONTAK = "kontak";
+    private static final String COL_ALAMAT = "alamat";
+    private static final String COL_CREATED = "created_at";
+    private static final String COL_UPDATED = "updated_at";
+
+    private static final String SQL_SELECT = "SELECT * FROM ";
+    private static final String SQL_WHERE = " WHERE ";
+    private static final String SQL_ID_PARAM = "id = ?";
+
     @Override
     public void insert(Supplier s) throws Exception {
-        String sql = "INSERT INTO supplier (nama, kontak, alamat) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO " + TABLE + " (" + COL_NAMA + ", " + COL_KONTAK + ", " + COL_ALAMAT + ") VALUES (?, ?, ?)";
         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         ps.setString(1, s.getNama());
         ps.setString(2, s.getKontak());
         ps.setString(3, s.getAlamat());
-
         ps.executeUpdate();
 
-        // 🔥 Ambil ID yang baru dibuat
         ResultSet rs = ps.getGeneratedKeys();
         if (rs.next()) {
             s.setId(rs.getInt(1));
         }
     }
 
-
     @Override
     public List<Supplier> findAll() throws Exception {
         List<Supplier> list = new ArrayList<>();
-        String sql = "SELECT * FROM supplier";
+        String sql = SQL_SELECT + TABLE;
 
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
             Supplier s = new Supplier();
-            s.setId(rs.getInt("id"));
-            s.setNama(rs.getString("nama"));
-            s.setKontak(rs.getString("kontak"));
-            s.setAlamat(rs.getString("alamat"));
-            s.setCreatedAt(rs.getTimestamp("created_at"));
-            s.setUpdatedAt(rs.getTimestamp("updated_at"));
+            s.setId(rs.getInt(COL_ID));
+            s.setNama(rs.getString(COL_NAMA));
+            s.setKontak(rs.getString(COL_KONTAK));
+            s.setAlamat(rs.getString(COL_ALAMAT));
+            s.setCreatedAt(rs.getTimestamp(COL_CREATED));
+            s.setUpdatedAt(rs.getTimestamp(COL_UPDATED));
             list.add(s);
         }
         return list;
     }
 
     @Override
-    public void update(Supplier s) throws Exception{
-        String sql = "UPDATE supplier SET nama = ?, kontak = ?, alamat = ? WHERE id = ?";
+    public void update(Supplier s) throws Exception {
+        String sql = "UPDATE " + TABLE +
+                " SET " + COL_NAMA + " = ?, " + COL_KONTAK + " = ?, " + COL_ALAMAT + " = ?" +
+                SQL_WHERE + SQL_ID_PARAM;
+
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setString(1, s.getNama());
@@ -63,7 +76,7 @@ public class SupplierDAOImpl extends BaseDAO<Supplier> implements SupplierDAO {
 
     @Override
     public void delete(int id) throws Exception {
-        String sql = "DELETE FROM supplier WHERE id = ?";
+        String sql = "DELETE FROM " + TABLE + SQL_WHERE + SQL_ID_PARAM;
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setInt(1, id);
@@ -71,30 +84,29 @@ public class SupplierDAOImpl extends BaseDAO<Supplier> implements SupplierDAO {
     }
 
     @Override
-    public Supplier findById(int id) throws Exception{
-        String sql = "SELECT * FROM supplier WHERE id = ?";
+    public Supplier findById(int id) throws Exception {
+        String sql = SQL_SELECT + TABLE + SQL_WHERE + SQL_ID_PARAM;
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
 
-        if (rs.next()){
+        if (rs.next()) {
             Supplier s = new Supplier();
-            s.setId(rs.getInt("id"));
-            s.setNama(rs.getString("nama"));
-            s.setKontak(rs.getString("kontak"));
-            s.setAlamat(rs.getString("alamat"));
-            s.setCreatedAt(rs.getTimestamp("created_at"));
-            s.setUpdatedAt(rs.getTimestamp("updated_at"));
-
+            s.setId(rs.getInt(COL_ID));
+            s.setNama(rs.getString(COL_NAMA));
+            s.setKontak(rs.getString(COL_KONTAK));
+            s.setAlamat(rs.getString(COL_ALAMAT));
+            s.setCreatedAt(rs.getTimestamp(COL_CREATED));
+            s.setUpdatedAt(rs.getTimestamp(COL_UPDATED));
             return s;
         }
         return null;
     }
 
     @Override
-    public Supplier findByKontak(String nama, String kontak) throws Exception{
-        String sql = "SELECT * FROM supplier WHERE nama = ? AND kontak = ?";
+    public Supplier findByKontak(String nama, String kontak) throws Exception {
+        String sql = SQL_SELECT + TABLE + SQL_WHERE + COL_NAMA + " = ? AND " + COL_KONTAK + " = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setString(1, nama);
@@ -103,49 +115,39 @@ public class SupplierDAOImpl extends BaseDAO<Supplier> implements SupplierDAO {
 
         if (rs.next()) {
             Supplier s = new Supplier();
-            s.setId(rs.getInt("id"));
-            s.setNama(rs.getString("nama"));
-            s.setKontak(rs.getString("kontak"));
-            s.setAlamat(rs.getString("alamat"));
-            s.setCreatedAt(rs.getTimestamp("created_at"));
-            s.setUpdatedAt(rs.getTimestamp("updated_at"));
-
+            s.setId(rs.getInt(COL_ID));
+            s.setNama(rs.getString(COL_NAMA));
+            s.setKontak(rs.getString(COL_KONTAK));
+            s.setAlamat(rs.getString(COL_ALAMAT));
+            s.setCreatedAt(rs.getTimestamp(COL_CREATED));
+            s.setUpdatedAt(rs.getTimestamp(COL_UPDATED));
             return s;
         }
         return null;
     }
 
     @Override
-    public boolean existInBarang(int supplierId) throws Exception{
-        String sql = "SELECT COUNT(*) FROM barang WHERE supplier_id = ?";
+    public boolean existInBarang(int supplierId) throws Exception {
+        String sql = "SELECT COUNT(*) FROM barang" + SQL_WHERE + "supplier_id = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setInt(1, supplierId);
         ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            return rs.getInt(1) > 0;
-        }
-        return false;
+        return rs.next() && rs.getInt(1) > 0;
     }
 
     @Override
     public boolean existInTransaksi(int supplierId) throws Exception {
         String sql = """
-            SELECT COUNT(*)
-            FROM transaksi t
-            JOIN barang b ON t.barang_id = b.id
-            WHERE b.supplier_id = ?
-        """;
+                SELECT COUNT(*)
+                FROM transaksi t
+                JOIN barang b ON t.barang_id = b.id
+                WHERE b.supplier_id = ?
+                """;
 
         PreparedStatement ps = conn.prepareStatement(sql);
-
         ps.setInt(1, supplierId);
         ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            return rs.getInt(1) > 0;
-        }
-        return false;
+        return rs.next() && rs.getInt(1) > 0;
     }
 }
