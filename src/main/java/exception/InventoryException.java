@@ -1,5 +1,19 @@
 package exception;
 
-public class InventoryException {
-    
+public class InventoryException extends Exception {
+    public InventoryException() {
+        super();
+    }
+
+    public InventoryException(String message) {
+        super(message);
+    }
+
+    public InventoryException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public InventoryException(Throwable cause) {
+        super(cause);
+    }
 }

@@ -12,26 +12,24 @@ public class TransaksiDAOImpl extends BaseDAO<Transaksi> implements TransaksiDAO
     @Override
     public void insert(Transaksi t) throws Exception {
         String sql = "INSERT INTO transaksi (barang_id, qty, jenis, tanggal, created_by, catatan) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement ps = conn.prepareStatement(sql);
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, t.getBarangId());
+            ps.setInt(2, t.getQty());
+            ps.setString(3, t.getJenis());
+            ps.setTimestamp(4, new Timestamp(t.getTanggal().getTime()));
+            ps.setObject(5, t.getCreatedBy());
+            ps.setString(6, t.getCatatan());
 
-        ps.setInt(1, t.getBarangId());
-        ps.setInt(2, t.getQty());
-        ps.setString(3, t.getJenis());
-        ps.setTimestamp(4, new Timestamp(t.getTanggal().getTime()));
-        ps.setObject(5, t.getCreatedBy());
-        ps.setString(6, t.getCatatan());
-
-        ps.executeUpdate();
+            ps.executeUpdate();
+        }
     }
 
     @Override
     public List<Transaksi> findAll() throws Exception {
         List<Transaksi> list = new ArrayList<>();
         String sql = "SELECT * FROM transaksi";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
             Transaksi t = new Transaksi();
             t.setId(rs.getInt("id"));
             t.setBarangId(rs.getInt("barang_id"));
@@ -41,6 +39,8 @@ public class TransaksiDAOImpl extends BaseDAO<Transaksi> implements TransaksiDAO
             t.setCreatedBy((Integer) rs.getObject("created_by"));
             t.setCatatan(rs.getString("catatan"));
             list.add(t);
+            }
+
         }
 
         System.out.println("[DEBUG] TransaksiDAOImpl.findAll() rows = " + list.size());

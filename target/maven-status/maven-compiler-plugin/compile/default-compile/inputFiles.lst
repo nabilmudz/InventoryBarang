@@ -1,33 +1,39 @@
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\config\DBConnection.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\ui\fx\transaksi\TransaksiController.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\services\barang\BarangServiceImpl.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\dao\supplier\SupplierDAOImpl.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\models\Supplier.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\services\transaksi\TransaksiService.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\interfaces\Observer.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\ui\fx\barang\BarangController.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\dao\barang\BarangDAOImpl.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\interfaces\Subject.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\services\supplier\SupplierService.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\exception\InventoryException.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\models\Transaksi.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\ui\fx\main\MainApp.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\exception\ValidationException.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\ui\fx\supplier\SupplierController.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\ui\fx\laporan\LaporanController.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\ui\fx\main\MainController.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\services\supplier\SupplierServiceImpl.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\services\barang\BarangService.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\dao\CrudDAO.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\dao\BaseDAO.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\models\Barang.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\utils\Validation.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\app\App.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\dao\transaksi\TransaksiDAOImpl.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\facade\InventoryFacade.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\services\transaksi\TransaksiServiceImpl.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\dao\barang\BarangDAO.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\ui\fx\dashboard\DashboardController.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\dao\transaksi\TransaksiDAO.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\dao\supplier\SupplierDAO.java
-C:\Users\nutbi\Documents\PROJECT KULIAH\Semester 3\PBO P\TUBES\src\main\java\services\base\BaseService.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\services\base\BaseService.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\services\barang\BarangServiceImpl.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\dao\barang\BarangDAOImpl.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\models\Transaksi.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\ui\fx\main\MainController.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\dao\supplier\SupplierDAOImpl.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\ui\fx\transaksi\TransaksiController.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\dao\barang\BarangDAO.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\services\supplier\SupplierService.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\services\transaksi\TransaksiService.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\dao\transaksi\TransaksiDAO.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\ui\fx\supplier\SupplierController.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\dao\transaksi\TransaksiDAOImpl.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\services\transaksi\TransaksiServiceImpl.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\services\user\UserServiceImpl.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\ui\fx\login\LoginController.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\exception\InventoryException.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\models\Supplier.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\models\User.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\models\Barang.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\ui\fx\barang\BarangController.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\facade\InventoryFacade.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\ui\fx\laporan\LaporanController.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\ui\fx\dashboard\DashboardController.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\dao\supplier\SupplierDAO.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\services\supplier\SupplierServiceImpl.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\interfaces\Observer.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\app\App.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\dao\BaseDAO.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\services\barang\BarangService.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\services\user\UserService.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\dao\CrudDAO.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\config\DBConnection.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\dao\user\UserDAOImpl.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\utils\Validation.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\ui\fx\main\MainApp.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\exception\ValidationException.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\interfaces\Subject.java
+D:\POLBAN\projects\InventoryBarang\src\main\java\dao\user\UserDAO.java
