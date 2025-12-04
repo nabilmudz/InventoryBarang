@@ -105,4 +105,4 @@ Sesuaikan nilai di atas dengan environment Anda.
 mvn clean install
 ```
 ## 6. Menjalankan Aplikasi
-mvn compile exec:java -Dexec.mainClass=App
+mvn clean javafx:run

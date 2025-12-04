@@ -20,11 +20,6 @@ public class MainController {
         showTransaksi();
     }
 
-    // @FXML
-    // private void showDashboard() {
-    //     loadView("/ui/fx/dashboard/DashboardView.fxml", null);
-    // }
-
     @FXML
     private void showBarang() {
         loadView("/ui/fx/barang/BarangView.fxml", controller -> {
@@ -47,15 +42,6 @@ public class MainController {
     private void showTransaksi() {
         loadView("/ui/fx/transaksi/TransaksiView.fxml", controller -> {
             if (controller instanceof TransaksiController c) {
-                c.setFacade(facade);
-            }
-        });
-    }
-
-    @FXML
-    private void showLaporan() {
-        loadView("/ui/fx/laporan/LaporanView.fxml", controller -> {
-            if (controller instanceof ui.fx.laporan.LaporanController c) {
                 c.setFacade(facade);
             }
         });
