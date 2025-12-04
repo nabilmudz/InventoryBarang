@@ -1,4 +1,8 @@
 target/
 *.class
 *.log
+<<<<<<< HEAD
 *.bat
+=======
+src/main/resources/application.properties
+>>>>>>> 5d17f2ede1852e0d05367e02826521a48f82695c

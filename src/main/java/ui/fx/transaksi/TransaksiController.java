@@ -1,16 +1,19 @@
 package ui.fx.transaksi;
 
 import facade.InventoryFacade;
+import interfaces.Observer;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ListChangeListener;
 import models.Transaksi;
 
 import java.util.Date;
 import java.util.List;
 
-public class TransaksiController {
+public class TransaksiController implements Observer{
 
     @FXML
     private TextField txtBarangId;
@@ -52,29 +55,27 @@ public class TransaksiController {
 
     public void setFacade(InventoryFacade facade) {
         this.facade = facade;
-        System.out.println("[DEBUG] TransaksiController.setFacade dipanggil");
+        this.facade.registerTransaksiObserver(this);
         loadTransaksiTable();
     }
 
     @FXML
     public void initialize() {
-        // Isi combo box kalau mau dari kode juga (opsional karena kamu sudah isi dari FXML)
-        if (cbJenis.getItems().isEmpty()) {
-            cbJenis.getItems().setAll("MASUK", "KELUAR");
-        }
+        colId.setCellValueFactory(col ->
+            new ReadOnlyObjectWrapper<>(tblTransaksi.getItems().indexOf(col.getValue()) + 1)
+        );
 
-        // Binding kolom ke property di models.Transaksi (getId, getBarangId, dst.)
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colBarangId.setCellValueFactory(new PropertyValueFactory<>("barangId"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
         colJenis.setCellValueFactory(new PropertyValueFactory<>("jenis"));
-
-        colTanggal.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getTanggal())
-        );
-
+        colTanggal.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
         colCatatan.setCellValueFactory(new PropertyValueFactory<>("catatan"));
+
+        tblTransaksi.getItems().addListener((ListChangeListener<Transaksi>) c -> {
+            tblTransaksi.refresh();
+        });
     }
+
 
     @FXML
     private void handleSimpan() {
@@ -106,11 +107,9 @@ public class TransaksiController {
     private void loadTransaksiTable() {
         try {
             if (facade == null) {
-                System.out.println("[DEBUG] facade masih null, skip loadTransaksiTable");
                 return;
             }
             List<Transaksi> data = facade.listTransaksi();
-            System.out.println("[DEBUG] loadTransaksiTable, dapat data = " + data.size());
             tblTransaksi.getItems().setAll(data);
         } catch (Exception e) {
             lblStatus.setText("Gagal memuat transaksi: " + e.getMessage());
@@ -123,5 +122,10 @@ public class TransaksiController {
         txtQty.clear();
         cbJenis.getSelectionModel().clearSelection();
         txtCatatan.clear();
+    }
+    
+    @Override
+    public void update() {
+        loadTransaksiTable();
     }
 }

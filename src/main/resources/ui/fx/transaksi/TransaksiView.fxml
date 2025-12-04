@@ -45,8 +45,8 @@
 
     <TableView fx:id="tblTransaksi">
         <columns>
-            <TableColumn fx:id="colId"       text="ID"         prefWidth="50"/>
-            <TableColumn fx:id="colBarangId" text="Barang ID"  prefWidth="80"/>
+            <TableColumn fx:id="colId"       text="No"         prefWidth="50"/>
+            <TableColumn fx:id="colBarangId" text="ID Barang"  prefWidth="80"/>
             <TableColumn fx:id="colQty"      text="Qty"        prefWidth="60"/>
             <TableColumn fx:id="colJenis"    text="Jenis"      prefWidth="80"/>
             <TableColumn fx:id="colTanggal"  text="Tanggal"    prefWidth="150"/>

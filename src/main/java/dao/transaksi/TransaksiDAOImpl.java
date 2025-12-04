@@ -27,7 +27,7 @@ public class TransaksiDAOImpl extends BaseDAO<Transaksi> implements TransaksiDAO
     @Override
     public List<Transaksi> findAll() throws Exception {
         List<Transaksi> list = new ArrayList<>();
-        String sql = "SELECT * FROM transaksi";
+        String sql = "SELECT id, barang_id, qty, jenis, tanggal, created_by, catatan FROM transaksi";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -43,11 +43,14 @@ public class TransaksiDAOImpl extends BaseDAO<Transaksi> implements TransaksiDAO
             list.add(t);
         }
 
-        System.out.println("[DEBUG] TransaksiDAOImpl.findAll() rows = " + list.size());
         return list;
     }
 
-    @Override public void update(Transaksi t) {}
-    @Override public void delete(int id) {}
+    @Override public void update(Transaksi t) {
+        // Tidak digunakan
+    }
+    @Override public void delete(int id) {
+        // Tidak digunakan
+    }
     @Override public Transaksi findById(int id) { return null; }
 }
