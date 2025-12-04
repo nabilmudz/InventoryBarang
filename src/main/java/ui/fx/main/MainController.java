@@ -1,11 +1,16 @@
 package ui.fx.main;
 
 import facade.InventoryFacade;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
+import java.io.IOException;
 import models.User;
+import ui.fx.dashboard.DashboardController;
 import ui.fx.supplier.SupplierController;
 import ui.fx.transaksi.TransaksiController;
 
@@ -27,7 +32,25 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        showTransaksi();
+        showDashboard();
+    }
+
+    @FXML
+    private void showDashboard() {
+        loadView("/ui/fx/dashboard/DashboardView.fxml", controller -> {
+            if (controller instanceof DashboardController c) {
+                c.setFacade(facade);
+            }
+        });
+    }
+
+    @FXML
+    private void showTransaksi() {
+        loadView("/ui/fx/transaksi/TransaksiView.fxml", controller -> {
+            if (controller instanceof TransaksiController c) {
+                c.setFacade(facade);
+            }
+        });
     }
 
     @FXML
@@ -49,13 +72,16 @@ public class MainController {
     }
 
     @FXML
-    private void showTransaksi() {
-        loadView("/ui/fx/transaksi/TransaksiView.fxml", controller -> {
-            if (controller instanceof TransaksiController c) {
-                c.setFacade(facade);
-            }
-        });
+    private void logout(ActionEvent event) {
+        try {
+            Parent loginRoot = FXMLLoader.load(getClass().getResource("/ui/fx/login/LoginView.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(loginRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 
     private void loadView(String fxmlPath, ControllerConsumer consumer) {
         try {

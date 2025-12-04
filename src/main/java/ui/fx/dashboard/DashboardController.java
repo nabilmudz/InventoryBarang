@@ -60,7 +60,6 @@ public class DashboardController {
         try {
             if (facade == null) return;
 
-            // Update summary cards
             int totalBarang = facade.getAllBarang().size();
             int totalSupplier = facade.listSupplier().size();
             int totalTransaksi = facade.listTransaksi().size();
@@ -73,7 +72,6 @@ public class DashboardController {
             lblTotalTransaksi.setText(String.valueOf(totalTransaksi));
             lblLowStock.setText(String.valueOf(lowStock));
 
-            // Load recent transactions
             List<Transaksi> transaksiList = facade.listTransaksi();
             if (transaksiList.size() > 10) {
                 tableTransaksi.getItems().setAll(transaksiList.subList(0, 10));

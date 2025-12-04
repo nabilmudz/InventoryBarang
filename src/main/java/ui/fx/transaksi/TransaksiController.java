@@ -8,7 +8,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ListChangeListener;
 import models.Transaksi;
-import ui.fx.utils.DialogUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -74,9 +73,8 @@ public class TransaksiController implements Observer{
         colTanggal.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
         colCatatan.setCellValueFactory(new PropertyValueFactory<>("catatan"));
 
-        tblTransaksi.getItems().addListener((ListChangeListener<Transaksi>) c -> {
-            tblTransaksi.refresh();
-        });
+        tblTransaksi.getItems().addListener((ListChangeListener<Transaksi>) c 
+        -> tblTransaksi.refresh());
     }
 
     @FXML
@@ -94,14 +92,14 @@ public class TransaksiController implements Observer{
                 facade.addTransaksiKeluar(barangId, qty, userId, catatan);
             }
 
-            DialogUtil.showSuccess("Transaksi berhasil disimpan!");
+            lblStatus.setText("Transaksi berhasil disimpan!");
             loadTransaksiTable();
             clearForm();
 
         } catch (ValidationException e) {
-            DialogUtil.showError(e.getMessage());
+            lblStatus.setText("Gagal memuat transaksi: " + e.getMessage());
         } catch (Exception e) {
-            DialogUtil.showError("Error: " + e.getMessage());
+            lblStatus.setText("Gagal memuat transaksi: " + e.getMessage());
             e.printStackTrace();
         }
     }

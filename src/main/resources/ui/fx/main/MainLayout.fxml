@@ -17,17 +17,28 @@
                 
                 <Separator/>
                 
+                <Button text="Dashboard" maxWidth="Infinity"
+                        onAction="#showDashboard"
+                        styleClass="sidebar-button"/>
+
                 <Button text="Transaksi" maxWidth="Infinity"
-                onAction="#showTransaksi" styleClass="sidebar-button"/>
-                
+                        onAction="#showTransaksi"
+                        styleClass="sidebar-button"/>
+
                 <Button text="Barang" maxWidth="Infinity"
-                onAction="#showBarang"
-                style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+                        onAction="#showBarang"
+                        styleClass="sidebar-button"/>
+
+                <Button text="Supplier" maxWidth="Infinity"
+                        onAction="#showSupplier"
+                        styleClass="sidebar-button"/>
                 
-                <Button text="Supplier"
-                onAction="#showSupplier"
-                maxWidth="Infinity"
-                style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                
+                <Button text="Logout" maxWidth="Infinity"
+                        onAction="#logout"
+                        styleClass="sidebar-button"
+                        style="-fx-text-fill: #ff4d4d; -fx-font-weight: bold;"/>
                 
         </VBox>
 </left>
