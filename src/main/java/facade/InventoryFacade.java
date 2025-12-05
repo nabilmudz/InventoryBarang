@@ -33,23 +33,23 @@ public class InventoryFacade {
     }
     
     public void addBarang(Barang b) {
-        barangService.addBarang(b);
+        barangService.create(b);
     }
 
-    public void updateBarang(Barang b) {
-        barangService.updateBarang(b);
+    public void updateBarang(Barang b) throws Exception {
+        barangService.update(b);
     }
 
-    public void deleteBarang(int id) {
-        barangService.deleteBarang(id);
+    public void deleteBarang(int id) throws Exception {
+        barangService.delete(id);
     }
 
-    public Barang getBarangById(int id) {
-        return barangService.getBarangById(id);
+    public Barang getBarangById(int id) throws Exception {
+        return barangService.getById(id);
     }
 
-    public List<Barang> getAllBarang() {
-        return barangService.getAllBarang();
+    public List<Barang> getAllBarang() throws Exception {
+        return barangService.getAll();
     }
 
     public Transaksi addTransaksiMasuk(int barangId, int qty, Integer userId, String catatan)

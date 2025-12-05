@@ -5,13 +5,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import models.Barang;
-import services.barang.BarangService;
-import services.barang.BarangServiceImpl;
 import facade.InventoryFacade;
+import interfaces.Observer;
 
 import java.time.LocalDateTime;
 
-public class BarangController {
+public class BarangController implements Observer {
 
     @FXML
     private TableView<Barang> tableBarang;
@@ -46,13 +45,12 @@ public class BarangController {
     @FXML
     private Label statusLabel;
 
-    private BarangService barangService = new BarangServiceImpl();
     private InventoryFacade facade;
-
     private Integer selectedId = null;
 
     public void setFacade(InventoryFacade facade) {
         this.facade = facade;
+        this.facade.registerTransaksiObserver(this);
         loadTable();
     }
 
@@ -65,13 +63,15 @@ public class BarangController {
         colSupplier.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
 
         tableBarang.setOnMouseClicked(this::pilihBarang);
-        
-        loadTable();
     }
 
     private void loadTable() {
+        if (facade == null) {
+            return;
+        }
+
         try {
-            tableBarang.getItems().setAll(barangService.getAllBarang());
+            tableBarang.getItems().setAll(facade.getAllBarang());
         } catch (Exception e) {
             showError("Gagal memuat data: " + e.getMessage());
         }
@@ -93,13 +93,12 @@ public class BarangController {
             barang.setCreatedAt(LocalDateTime.now());
             barang.setUpdatedAt(LocalDateTime.now());
 
-            barangService.addBarang(barang);
+            facade.addBarang(barang);
 
             statusLabel.setText("Barang berhasil disimpan");
             statusLabel.setStyle("-fx-text-fill: green;");
             
             clearForm();
-            loadTable();
 
         } catch (Exception e) {
             showError("Error menyimpan barang: " + e.getMessage());
@@ -134,13 +133,12 @@ public class BarangController {
             barang.setSupplierId(Integer.parseInt(inputSupplier.getText().isEmpty() ? "0" : inputSupplier.getText()));
             barang.setUpdatedAt(LocalDateTime.now());
 
-            barangService.updateBarang(barang);
+            facade.updateBarang(barang);
 
             statusLabel.setText("Barang berhasil diperbarui");
             statusLabel.setStyle("-fx-text-fill: green;");
             
             clearForm();
-            loadTable();
 
         } catch (Exception e) {
             showError("Error update barang: " + e.getMessage());
@@ -155,13 +153,12 @@ public class BarangController {
         }
 
         try {
-            barangService.deleteBarang(selectedId);
+            facade.deleteBarang(selectedId);
             
             statusLabel.setText("Barang berhasil dihapus");
             statusLabel.setStyle("-fx-text-fill: green;");
             
             clearForm();
-            loadTable();
         } catch (Exception e) {
             showError("Error menghapus barang: " + e.getMessage());
         }
@@ -180,5 +177,10 @@ public class BarangController {
     private void showError(String message) {
         statusLabel.setText(message);
         statusLabel.setStyle("-fx-text-fill: red;");
+    }
+
+    @Override
+    public void update() {
+        loadTable();
     }
 }
