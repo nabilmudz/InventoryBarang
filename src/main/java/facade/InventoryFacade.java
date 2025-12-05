@@ -12,7 +12,7 @@ import services.transaksi.TransaksiServiceImpl;
 
 import services.barang.BarangService;
 import services.barang.BarangServiceImpl;
-
+import exception.ValidationException;
 import dao.supplier.SupplierDAOImpl;
 
 import interfaces.Observer;
@@ -54,7 +54,7 @@ public class InventoryFacade {
     // Transaksi methods
     public Transaksi addTransaksiMasuk(int barangId, int qty, Integer userId, String catatan)
         throws ValidationException {
-    return transaksiService.createMasuk(barangId, qty, userId, catatan);
+        return transaksiService.createMasuk(barangId, qty, userId, catatan);
     }
 
     public Transaksi addTransaksiKeluar(int barangId, int qty, Integer userId, String catatan)
