@@ -23,23 +23,23 @@ public class InventoryFacade {
 
     // Barang methods
     public void addBarang(Barang b) throws Exception {
-        barangService.addBarang(b);
+        barangService.create(b);
     }
 
     public void updateBarang(Barang b) throws Exception {
-        barangService.updateBarang(b);
+        barangService.update(b);
     }
 
     public void deleteBarang(int id) throws Exception {
-        barangService.deleteBarang(id);
+        barangService.delete(id);
     }
 
     public Barang getBarangById(int id) throws Exception {
-        return barangService.getBarangById(id);
+        return barangService.getById(id);
     }
 
     public List<Barang> getAllBarang() throws Exception {
-        return barangService.getAllBarang();
+        return barangService.getAll();
     }
 
     // Transaksi methods

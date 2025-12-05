@@ -5,13 +5,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import models.Barang;
-import services.barang.BarangService;
-import services.barang.BarangServiceImpl;
 import facade.InventoryFacade;
+import interfaces.Observer;
 
 import java.time.LocalDateTime;
 
-public class BarangController {
+public class BarangController implements Observer {
 
     @FXML
     private TableView<Barang> tableBarang;
@@ -46,19 +45,17 @@ public class BarangController {
     @FXML
     private Label statusLabel;
 
-    private BarangService barangService = new BarangServiceImpl();
     private InventoryFacade facade;
-
     private Integer selectedId = null;
 
     public void setFacade(InventoryFacade facade) {
         this.facade = facade;
+        this.facade.registerTransaksiObserver(this);
         loadTable();
     }
 
     @FXML
     public void initialize() {
-        // binding kolom
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNama.setCellValueFactory(new PropertyValueFactory<>("nama"));
         colStok.setCellValueFactory(new PropertyValueFactory<>("stok"));
@@ -66,20 +63,20 @@ public class BarangController {
         colSupplier.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
 
         tableBarang.setOnMouseClicked(this::pilihBarang);
-        
-        loadTable();
     }
 
-    // 🔹 Load data ke TableView
     private void loadTable() {
+        if (facade == null) {
+            return;
+        }
+
         try {
-            tableBarang.getItems().setAll(barangService.getAllBarang());
+            tableBarang.getItems().setAll(facade.getAllBarang());
         } catch (Exception e) {
             showError("Gagal memuat data: " + e.getMessage());
         }
     }
 
-    // 🔹 Simpan barang baru
     @FXML
     private void simpanBarang() {
         try {
@@ -96,20 +93,18 @@ public class BarangController {
             barang.setCreatedAt(LocalDateTime.now());
             barang.setUpdatedAt(LocalDateTime.now());
 
-            barangService.addBarang(barang);
+            facade.addBarang(barang);
 
             statusLabel.setText("Barang berhasil disimpan");
             statusLabel.setStyle("-fx-text-fill: green;");
             
             clearForm();
-            loadTable();
 
         } catch (Exception e) {
             showError("Error menyimpan barang: " + e.getMessage());
         }
     }
 
-    // 🔹 Pilih baris tabel → tampilkan di form
     @FXML
     private void pilihBarang(MouseEvent event) {
         Barang barang = tableBarang.getSelectionModel().getSelectedItem();
@@ -122,7 +117,6 @@ public class BarangController {
         }
     }
 
-    // 🔹 Update barang
     @FXML
     private void updateBarang() {
         if (selectedId == null) {
@@ -139,20 +133,18 @@ public class BarangController {
             barang.setSupplierId(Integer.parseInt(inputSupplier.getText().isEmpty() ? "0" : inputSupplier.getText()));
             barang.setUpdatedAt(LocalDateTime.now());
 
-            barangService.updateBarang(barang);
+            facade.updateBarang(barang);
 
             statusLabel.setText("Barang berhasil diperbarui");
             statusLabel.setStyle("-fx-text-fill: green;");
             
             clearForm();
-            loadTable();
 
         } catch (Exception e) {
             showError("Error update barang: " + e.getMessage());
         }
     }
 
-    // 🔹 Delete barang
     @FXML
     private void hapusBarang() {
         if (selectedId == null) {
@@ -161,19 +153,17 @@ public class BarangController {
         }
 
         try {
-            barangService.deleteBarang(selectedId);
+            facade.deleteBarang(selectedId);
             
             statusLabel.setText("Barang berhasil dihapus");
             statusLabel.setStyle("-fx-text-fill: green;");
             
             clearForm();
-            loadTable();
         } catch (Exception e) {
             showError("Error menghapus barang: " + e.getMessage());
         }
     }
 
-    // 🔹 Clear form
     @FXML
     private void clearForm() {
         inputNama.clear();
@@ -187,5 +177,10 @@ public class BarangController {
     private void showError(String message) {
         statusLabel.setText(message);
         statusLabel.setStyle("-fx-text-fill: red;");
+    }
+
+    @Override
+    public void update() {
+        loadTable();
     }
 }

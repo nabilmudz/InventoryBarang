@@ -1,17 +1,9 @@
 package dao.barang;
 
+import dao.CrudDAO;
 import models.Barang;
-import java.util.List;
 
-public interface BarangDAO {
-
-    boolean insert(Barang barang);
-
-    boolean update(Barang barang);
-
-    boolean delete(int id);
-
-    Barang getById(int id);
-
-    List<Barang> getAll();
+public interface BarangDAO extends CrudDAO<Barang> {
+    Barang findByNama(String nama) throws Exception;
+    boolean existInTransaksi(int barangId) throws Exception;
 }

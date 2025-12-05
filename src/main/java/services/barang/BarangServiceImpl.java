@@ -8,42 +8,96 @@ import java.util.List;
 
 public class BarangServiceImpl implements BarangService {
 
-    private final BarangDAO barangDAO;
+    private BarangDAO barangDAO;
 
     public BarangServiceImpl() {
-        this.barangDAO = new BarangDAOImpl(); 
+        this.barangDAO = new BarangDAOImpl();
     }
 
     public BarangServiceImpl(BarangDAO barangDAO) {
-        this.barangDAO = barangDAO; // kalau mau pakai dependency injection
+        this.barangDAO = barangDAO;
     }
 
     @Override
-    public Barang getBarangById(int id) {
-        return barangDAO.getById(id);
-    }
-
-    @Override
-    public List<Barang> getAllBarang() {
-        return barangDAO.getAll();
-    }
-
-    @Override
-    public void addBarang(Barang barang) {
-        // validasi sederhana
-        if (barang.getNama() == null || barang.getNama().isEmpty()) {
-            throw new IllegalArgumentException("Nama barang tidak boleh kosong");
+    public void create(Barang b) throws Exception {
+        if (b.getNama() == null || b.getNama().trim().isEmpty()) {
+            throw new Exception("Nama barang tidak boleh kosong");
         }
-        barangDAO.insert(barang);
+
+        if (b.getStok() < 0) {
+            throw new Exception("Stok barang tidak boleh negatif");
+        }
+
+        if (b.getHarga() < 0) {
+            throw new Exception("Harga barang tidak boleh negatif");
+        }
+
+        if (b.getSupplierId() <= 0) {
+            throw new Exception("Supplier ID tidak valid");
+        }
+
+        Barang existing = barangDAO.findByNama(b.getNama());
+        if (existing != null) {
+            throw new Exception("Barang dengan nama tersebut sudah ada");
+        }
+
+        barangDAO.insert(b);
     }
 
     @Override
-    public void updateBarang(Barang barang) {
-        barangDAO.update(barang);
+    public void update(Barang b) throws Exception {
+        if (b.getId() <= 0) {
+            throw new Exception("ID barang tidak valid");
+        }
+
+        if (b.getNama() == null || b.getNama().trim().isEmpty()) {
+            throw new Exception("Nama barang tidak boleh kosong");
+        }
+
+        if (b.getStok() < 0) {
+            throw new Exception("Stok barang tidak boleh negatif");
+        }
+
+        if (b.getHarga() < 0) {
+            throw new Exception("Harga barang tidak boleh negatif");
+        }
+
+        if (b.getSupplierId() <= 0) {
+            throw new Exception("Supplier ID tidak valid");
+        }
+
+        Barang existing = barangDAO.findByNama(b.getNama());
+        if (existing != null && existing.getId() != b.getId()) {
+            throw new Exception("Nama barang sudah digunakan barang lain");
+        }
+
+        barangDAO.update(b);
     }
 
     @Override
-    public void deleteBarang(int id) {
+    public void delete(int id) throws Exception {
+        if (id <= 0) {
+            throw new Exception("ID barang tidak valid");
+        }
+
+        if (barangDAO.existInTransaksi(id)) {
+            throw new Exception("Barang masih dipakai di Transaksi");
+        }
+
         barangDAO.delete(id);
+    }
+
+    @Override
+    public Barang getById(int id) throws Exception {
+        Barang b = barangDAO.findById(id);
+        if (b == null) {
+            throw new Exception("Barang dengan ID " + id + " tidak ditemukan");
+        }
+        return b;
+    }
+
+    @Override
+    public List<Barang> getAll() throws Exception {
+        return barangDAO.findAll();
     }
 }
