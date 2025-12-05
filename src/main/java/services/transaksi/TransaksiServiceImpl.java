@@ -18,7 +18,7 @@ import interfaces.Observer;
 public class TransaksiServiceImpl implements TransaksiService {
 
     private final TransaksiDAO transaksiDAO = new TransaksiDAOImpl();
-    private final BarangDAO barangDAO       = new BarangDAOImpl();   // <--- tambah ini
+    private final BarangDAO barangDAO       = new BarangDAOImpl();
     private final List<Observer> observers = new ArrayList<>();
 
     @Override

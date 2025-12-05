@@ -58,7 +58,6 @@ public class BarangController {
 
     @FXML
     public void initialize() {
-        // binding kolom
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNama.setCellValueFactory(new PropertyValueFactory<>("nama"));
         colStok.setCellValueFactory(new PropertyValueFactory<>("stok"));
@@ -70,7 +69,6 @@ public class BarangController {
         loadTable();
     }
 
-    // 🔹 Load data ke TableView
     private void loadTable() {
         try {
             tableBarang.getItems().setAll(barangService.getAllBarang());
@@ -79,7 +77,6 @@ public class BarangController {
         }
     }
 
-    // 🔹 Simpan barang baru
     @FXML
     private void simpanBarang() {
         try {
@@ -109,7 +106,6 @@ public class BarangController {
         }
     }
 
-    // 🔹 Pilih baris tabel → tampilkan di form
     @FXML
     private void pilihBarang(MouseEvent event) {
         Barang barang = tableBarang.getSelectionModel().getSelectedItem();
@@ -122,7 +118,6 @@ public class BarangController {
         }
     }
 
-    // 🔹 Update barang
     @FXML
     private void updateBarang() {
         if (selectedId == null) {
@@ -152,7 +147,6 @@ public class BarangController {
         }
     }
 
-    // 🔹 Delete barang
     @FXML
     private void hapusBarang() {
         if (selectedId == null) {
@@ -173,7 +167,6 @@ public class BarangController {
         }
     }
 
-    // 🔹 Clear form
     @FXML
     private void clearForm() {
         inputNama.clear();

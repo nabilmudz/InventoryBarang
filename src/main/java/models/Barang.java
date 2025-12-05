@@ -24,8 +24,6 @@ public class Barang {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
-    // GETTER & SETTER
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

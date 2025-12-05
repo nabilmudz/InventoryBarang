@@ -15,7 +15,7 @@ public class BarangServiceImpl implements BarangService {
     }
 
     public BarangServiceImpl(BarangDAO barangDAO) {
-        this.barangDAO = barangDAO; // kalau mau pakai dependency injection
+        this.barangDAO = barangDAO;
     }
 
     @Override
@@ -30,7 +30,6 @@ public class BarangServiceImpl implements BarangService {
 
     @Override
     public void addBarang(Barang barang) {
-        // validasi sederhana
         if (barang.getNama() == null || barang.getNama().isEmpty()) {
             throw new IllegalArgumentException("Nama barang tidak boleh kosong");
         }

@@ -51,7 +51,6 @@ public class InventoryFacade {
         return barangService.getAllBarang();
     }
 
-    // Transaksi methods
     public Transaksi addTransaksiMasuk(int barangId, int qty, Integer userId, String catatan)
         throws ValidationException {
         return transaksiService.createMasuk(barangId, qty, userId, catatan);
@@ -94,7 +93,6 @@ public class InventoryFacade {
         return supplierService.findAll();
     }
 
-    // Observer supplier
     public void registerSupplierObserver(Observer o) {
         supplierService.registerObserver(o);
     }
