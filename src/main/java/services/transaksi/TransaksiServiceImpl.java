@@ -2,7 +2,12 @@ package services.transaksi;
 
 import dao.transaksi.TransaksiDAO;
 import dao.transaksi.TransaksiDAOImpl;
+
+import dao.barang.BarangDAO;
+import dao.barang.BarangDAOImpl;
+
 import exception.ValidationException;
+import models.Barang;
 import models.Transaksi;
 
 import java.util.ArrayList;
@@ -10,10 +15,10 @@ import java.util.Date;
 import java.util.List;
 import interfaces.Observer;
 
-// DEMO
 public class TransaksiServiceImpl implements TransaksiService {
 
     private final TransaksiDAO transaksiDAO = new TransaksiDAOImpl();
+    private final BarangDAO barangDAO       = new BarangDAOImpl();   // <--- tambah ini
     private final List<Observer> observers = new ArrayList<>();
 
     @Override
@@ -30,10 +35,16 @@ public class TransaksiServiceImpl implements TransaksiService {
     }
 
     @Override
-    public void createMasuk(int barangId, int qty, Integer createdBy, String catatan)
+    public Transaksi createMasuk(int barangId, int qty, Integer createdBy, String catatan)
             throws ValidationException {
+
         if (qty <= 0) {
             throw new ValidationException("Qty tidak boleh <= 0");
+        }
+
+        Barang barang = barangDAO.getById(barangId);
+        if (barang == null) {
+            throw new ValidationException("Barang dengan ID " + barangId + " tidak ditemukan");
         }
 
         Transaksi t = new Transaksi(
@@ -47,24 +58,37 @@ public class TransaksiServiceImpl implements TransaksiService {
 
         try {
             transaksiDAO.insert(t);
+
+            int stokBaru = barang.getStok() + qty;
+            barang.setStok(stokBaru);
+            barangDAO.update(barang);
+
         } catch (Exception e) {
-            // kalau mau: wrap jadi runtime / InventoryException
             throw new ValidationException("Gagal menyimpan transaksi MASUK: " + e.getMessage());
         }
 
         notifyObservers();
+        return t;
     }
 
     @Override
-    public void createKeluar(int barangId, int qty, Integer createdBy, String catatan) throws ValidationException {
+    public Transaksi createKeluar(int barangId, int qty, Integer createdBy, String catatan)
+            throws ValidationException {
+
         if (qty <= 0) {
             throw new ValidationException("Qty tidak boleh <= 0");
         }
 
-        // TODO: nanti tambahkan pengecekan stok barang
-        // Barang barang = barangDAO.findById(barangId);
-        // if (barang == null) throw new Exception(...);
-        // if (barang.getStok() < qty) throw new Exception("Stok tidak cukup");
+        Barang barang = barangDAO.getById(barangId);
+        if (barang == null) {
+            throw new ValidationException("Barang dengan ID " + barangId + " tidak ditemukan");
+        }
+
+        if (barang.getStok() < qty) {
+            throw new ValidationException(
+                    "Stok tidak cukup. Stok saat ini: " + barang.getStok()
+            );
+        }
 
         Transaksi t = new Transaksi(
                 barangId,
@@ -77,10 +101,17 @@ public class TransaksiServiceImpl implements TransaksiService {
 
         try {
             transaksiDAO.insert(t);
+
+            int stokBaru = barang.getStok() - qty;
+            barang.setStok(stokBaru);
+            barangDAO.update(barang);
+
         } catch (Exception e) {
-            throw new ValidationException("Gagal menyimpan transaksi MASUK: " + e.getMessage());
+            throw new ValidationException("Gagal menyimpan transaksi KELUAR: " + e.getMessage());
         }
+
         notifyObservers();
+        return t;
     }
 
     @Override

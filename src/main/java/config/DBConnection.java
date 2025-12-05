@@ -47,11 +47,9 @@ public class DBConnection {
     public Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
-                // reconnect
                 connection = DriverManager.getConnection(this.url, this.user, this.pass);
             }
         } catch (Exception e) {
-            // attempt to recreate instance and connection
             try {
                 connection = DriverManager.getConnection(this.url, this.user, this.pass);
             } catch (Exception ex) {

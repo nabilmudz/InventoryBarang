@@ -8,10 +8,10 @@
 <StackPane xmlns="http://javafx.com/javafx/21.0.2"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="ui.fx.login.LoginController"
+           alignment="CENTER"
            prefWidth="500.0" prefHeight="400.0"
            style="-fx-background-color: #f0f0f0;">
 
-    <!-- Card login di tengah -->
     <VBox spacing="20.0"
           maxWidth="350.0"
           maxHeight="260.0"

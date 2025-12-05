@@ -43,12 +43,14 @@ public class InventoryFacade {
     }
 
     // Transaksi methods
-    public void addTransaksiMasuk(int barangId, int qty, Integer userId, String catatan) throws ValidationException {
-        transaksiService.createMasuk(barangId, qty, userId, catatan);
+    public Transaksi addTransaksiMasuk(int barangId, int qty, Integer userId, String catatan)
+        throws ValidationException {
+    return transaksiService.createMasuk(barangId, qty, userId, catatan);
     }
 
-    public void addTransaksiKeluar(int barangId, int qty, Integer userId, String catatan) throws ValidationException {
-        transaksiService.createKeluar(barangId, qty, userId, catatan);
+    public Transaksi addTransaksiKeluar(int barangId, int qty, Integer userId, String catatan)
+            throws ValidationException {
+        return transaksiService.createKeluar(barangId, qty, userId, catatan);
     }
 
     public List<Transaksi> listTransaksi() throws Exception {
