@@ -2,10 +2,14 @@ package ui.fx.barang;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import models.Barang;
 import services.barang.BarangService;
 import services.barang.BarangServiceImpl;
+import facade.InventoryFacade;
+
+import java.time.LocalDateTime;
 
 public class BarangController {
 
@@ -40,50 +44,63 @@ public class BarangController {
     private TextField inputSupplier;
 
     @FXML
-    private Button btnSimpan;
-
-    @FXML
-    private Button btnUpdate;
-
-    @FXML
-    private Button btnHapus;
+    private Label statusLabel;
 
     private BarangService barangService = new BarangServiceImpl();
+    private InventoryFacade facade;
 
     private Integer selectedId = null;
 
+    public void setFacade(InventoryFacade facade) {
+        this.facade = facade;
+        loadTable();
+    }
 
     @FXML
     public void initialize() {
         // binding kolom
-        colId.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getId()).asObject());
-        colNama.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNama()));
-        colStok.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getStok()).asObject());
-        colHarga.setCellValueFactory(data -> new javafx.beans.property.SimpleDoubleProperty(data.getValue().getHarga()).asObject());
-        colSupplier.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getSupplierId()).asObject());
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNama.setCellValueFactory(new PropertyValueFactory<>("nama"));
+        colStok.setCellValueFactory(new PropertyValueFactory<>("stok"));
+        colHarga.setCellValueFactory(new PropertyValueFactory<>("harga"));
+        colSupplier.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
 
+        tableBarang.setOnMouseClicked(this::pilihBarang);
+        
         loadTable();
     }
 
-
     // 🔹 Load data ke TableView
     private void loadTable() {
-        tableBarang.getItems().setAll(barangService.getAllBarang());
+        try {
+            tableBarang.getItems().setAll(barangService.getAllBarang());
+        } catch (Exception e) {
+            showError("Gagal memuat data: " + e.getMessage());
+        }
     }
-
 
     // 🔹 Simpan barang baru
     @FXML
     private void simpanBarang() {
         try {
+            if (inputNama.getText().isEmpty() || inputStok.getText().isEmpty() || inputHarga.getText().isEmpty()) {
+                showError("Semua field harus diisi");
+                return;
+            }
+
             Barang barang = new Barang();
             barang.setNama(inputNama.getText());
             barang.setStok(Integer.parseInt(inputStok.getText()));
             barang.setHarga(Double.parseDouble(inputHarga.getText()));
-            barang.setSupplierId(Integer.parseInt(inputSupplier.getText()));
+            barang.setSupplierId(Integer.parseInt(inputSupplier.getText().isEmpty() ? "0" : inputSupplier.getText()));
+            barang.setCreatedAt(LocalDateTime.now());
+            barang.setUpdatedAt(LocalDateTime.now());
 
             barangService.addBarang(barang);
 
+            statusLabel.setText("Barang berhasil disimpan");
+            statusLabel.setStyle("-fx-text-fill: green;");
+            
             clearForm();
             loadTable();
 
@@ -91,7 +108,6 @@ public class BarangController {
             showError("Error menyimpan barang: " + e.getMessage());
         }
     }
-
 
     // 🔹 Pilih baris tabel → tampilkan di form
     @FXML
@@ -105,7 +121,6 @@ public class BarangController {
             inputSupplier.setText(String.valueOf(barang.getSupplierId()));
         }
     }
-
 
     // 🔹 Update barang
     @FXML
@@ -121,10 +136,14 @@ public class BarangController {
             barang.setNama(inputNama.getText());
             barang.setStok(Integer.parseInt(inputStok.getText()));
             barang.setHarga(Double.parseDouble(inputHarga.getText()));
-            barang.setSupplierId(Integer.parseInt(inputSupplier.getText()));
+            barang.setSupplierId(Integer.parseInt(inputSupplier.getText().isEmpty() ? "0" : inputSupplier.getText()));
+            barang.setUpdatedAt(LocalDateTime.now());
 
             barangService.updateBarang(barang);
 
+            statusLabel.setText("Barang berhasil diperbarui");
+            statusLabel.setStyle("-fx-text-fill: green;");
+            
             clearForm();
             loadTable();
 
@@ -132,7 +151,6 @@ public class BarangController {
             showError("Error update barang: " + e.getMessage());
         }
     }
-
 
     // 🔹 Delete barang
     @FXML
@@ -144,6 +162,10 @@ public class BarangController {
 
         try {
             barangService.deleteBarang(selectedId);
+            
+            statusLabel.setText("Barang berhasil dihapus");
+            statusLabel.setStyle("-fx-text-fill: green;");
+            
             clearForm();
             loadTable();
         } catch (Exception e) {
@@ -151,19 +173,19 @@ public class BarangController {
         }
     }
 
-
     // 🔹 Clear form
+    @FXML
     private void clearForm() {
         inputNama.clear();
         inputStok.clear();
         inputHarga.clear();
         inputSupplier.clear();
         selectedId = null;
+        statusLabel.setText("");
     }
 
-
     private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
-        alert.showAndWait();
+        statusLabel.setText(message);
+        statusLabel.setStyle("-fx-text-fill: red;");
     }
 }

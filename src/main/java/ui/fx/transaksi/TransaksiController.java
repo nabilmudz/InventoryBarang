@@ -6,12 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import models.Transaksi;
 
 import java.util.Date;
 import java.util.List;
+
+import exception.ValidationException;
 
 public class TransaksiController implements Observer{
 
@@ -61,6 +62,7 @@ public class TransaksiController implements Observer{
 
     @FXML
     public void initialize() {
+        cbJenis.getSelectionModel().selectFirst();
         colId.setCellValueFactory(col ->
             new ReadOnlyObjectWrapper<>(tblTransaksi.getItems().indexOf(col.getValue()) + 1)
         );
@@ -71,11 +73,9 @@ public class TransaksiController implements Observer{
         colTanggal.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
         colCatatan.setCellValueFactory(new PropertyValueFactory<>("catatan"));
 
-        tblTransaksi.getItems().addListener((ListChangeListener<Transaksi>) c -> {
-            tblTransaksi.refresh();
-        });
+        tblTransaksi.getItems().addListener((ListChangeListener<Transaksi>) c 
+        -> tblTransaksi.refresh());
     }
-
 
     @FXML
     private void handleSimpan() {
@@ -90,19 +90,20 @@ public class TransaksiController implements Observer{
                 facade.addTransaksiMasuk(barangId, qty, userId, catatan);
             } else if ("KELUAR".equalsIgnoreCase(jenis)) {
                 facade.addTransaksiKeluar(barangId, qty, userId, catatan);
-            } else {
-                throw new IllegalArgumentException("Jenis transaksi belum dipilih");
             }
 
-            lblStatus.setText("Transaksi berhasil disimpan.");
+            lblStatus.setText("Transaksi berhasil disimpan!");
             loadTransaksiTable();
             clearForm();
 
+        } catch (ValidationException e) {
+            lblStatus.setText("Gagal memuat transaksi: " + e.getMessage());
         } catch (Exception e) {
-            lblStatus.setText("Error: " + e.getMessage());
+            lblStatus.setText("Gagal memuat transaksi: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
 
     private void loadTransaksiTable() {
         try {

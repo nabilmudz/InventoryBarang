@@ -2,32 +2,75 @@ package facade;
 
 import models.Supplier;
 import models.Transaksi;
+import models.Barang;
+
 import services.supplier.SupplierService;
 import services.supplier.SupplierServiceImpl;
+
 import services.transaksi.TransaksiService;
 import services.transaksi.TransaksiServiceImpl;
+
+import services.barang.BarangService;
+import services.barang.BarangServiceImpl;
+
+import dao.supplier.SupplierDAOImpl;
+
 import interfaces.Observer;
 
 import java.util.List;
 
-import exception.ValidationException;
-
 public class InventoryFacade {
 
-    private final SupplierService supplierService = new SupplierServiceImpl();
-    private final TransaksiService transaksiService = new TransaksiServiceImpl();
+    private final SupplierService supplierService;
+    private final TransaksiService transaksiService;
+    private final BarangService barangService;
 
-    // API level tinggi, dipakai UI
-    public void addTransaksiMasuk(int barangId, int qty, Integer userId, String catatan) throws ValidationException {
+    public InventoryFacade() {
+        this.supplierService = new SupplierServiceImpl(new SupplierDAOImpl());
+        this.transaksiService = new TransaksiServiceImpl();
+        this.barangService = new BarangServiceImpl();
+    }
+    
+    public void addBarang(Barang b) throws Exception {
+        barangService.addBarang(b);
+    }
+
+    public void updateBarang(Barang b) throws Exception {
+        barangService.updateBarang(b);
+    }
+
+    public void deleteBarang(int id) throws Exception {
+        barangService.deleteBarang(id);
+    }
+
+    public Barang getBarangById(int id) throws Exception {
+        return barangService.getBarangById(id);
+    }
+
+    public List<Barang> getAllBarang() throws Exception {
+        return barangService.getAllBarang();
+    }
+
+    public void addTransaksiMasuk(int barangId, int qty, Integer userId, String catatan)
+            throws Exception {
         transaksiService.createMasuk(barangId, qty, userId, catatan);
     }
 
-    public void addTransaksiKeluar(int barangId, int qty, Integer userId, String catatan) throws ValidationException {
+    public void addTransaksiKeluar(int barangId, int qty, Integer userId, String catatan)
+            throws Exception {
         transaksiService.createKeluar(barangId, qty, userId, catatan);
     }
 
     public List<Transaksi> listTransaksi() throws Exception {
         return transaksiService.getAll();
+    }
+
+    public void registerTransaksiObserver(Observer o) {
+        transaksiService.registerObserver(o);
+    }
+
+    public void removeTransaksiObserver(Observer o) {
+        transaksiService.removeObserver(o);
     }
 
     public void addSupplier(Supplier s) throws Exception {
@@ -43,18 +86,19 @@ public class InventoryFacade {
     }
 
     public Supplier getSupplierById(int id) throws Exception {
-        return supplierService.getById(id);
+        return supplierService.findById(id);
     }
 
     public List<Supplier> listSupplier() throws Exception {
-        return supplierService.getAll();
-    }
-    
-    public void registerTransaksiObserver(Observer o) {
-        transaksiService.registerObserver(o);
+        return supplierService.findAll();
     }
 
-    public void removeTransaksiObserver(Observer o) {
-        transaksiService.removeObserver(o);
+    // Observer supplier
+    public void registerSupplierObserver(Observer o) {
+        supplierService.registerObserver(o);
+    }
+
+    public void removeSupplierObserver(Observer o) {
+        supplierService.removeObserver(o);
     }
 }

@@ -1,19 +1,18 @@
 package services.supplier;
 
-import exception.InventoryException;
-import exception.ValidationException;
+import interfaces.Subject;
 import models.Supplier;
 import java.util.List;
 
-public interface SupplierService {
+public interface SupplierService extends Subject {
 
-    void create(Supplier s) throws ValidationException, InventoryException;
+    void create(Supplier supplier) throws Exception;
 
-    void update(Supplier s) throws ValidationException, InventoryException;
+    void update(Supplier supplier) throws Exception;
 
-    void delete(int id) throws ValidationException, InventoryException;
+    void delete(int id) throws Exception;
 
-    List<Supplier> getAll() throws InventoryException;
+    Supplier findById(int id) throws Exception;
 
-    Supplier getById(int id) throws ValidationException, InventoryException;
+    List<Supplier> findAll() throws Exception;
 }

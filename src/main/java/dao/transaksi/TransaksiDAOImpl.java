@@ -12,16 +12,16 @@ public class TransaksiDAOImpl extends BaseDAO<Transaksi> implements TransaksiDAO
     @Override
     public void insert(Transaksi t) throws Exception {
         String sql = "INSERT INTO transaksi (barang_id, qty, jenis, tanggal, created_by, catatan) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement ps = conn.prepareStatement(sql);
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, t.getBarangId());
+            ps.setInt(2, t.getQty());
+            ps.setString(3, t.getJenis());
+            ps.setTimestamp(4, new Timestamp(t.getTanggal().getTime()));
+            ps.setObject(5, t.getCreatedBy());
+            ps.setString(6, t.getCatatan());
 
-        ps.setInt(1, t.getBarangId());
-        ps.setInt(2, t.getQty());
-        ps.setString(3, t.getJenis());
-        ps.setTimestamp(4, new Timestamp(t.getTanggal().getTime()));
-        ps.setObject(5, t.getCreatedBy());
-        ps.setString(6, t.getCatatan());
-
-        ps.executeUpdate();
+            ps.executeUpdate();
+        }
     }
 
     @Override
