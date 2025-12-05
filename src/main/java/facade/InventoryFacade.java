@@ -3,25 +3,34 @@ package facade;
 import models.Supplier;
 import models.Transaksi;
 import models.Barang;
+
 import services.supplier.SupplierService;
 import services.supplier.SupplierServiceImpl;
+
 import services.transaksi.TransaksiService;
 import services.transaksi.TransaksiServiceImpl;
-import interfaces.Observer;
+
 import services.barang.BarangService;
 import services.barang.BarangServiceImpl;
 
-import java.util.List;
+import dao.supplier.SupplierDAOImpl;
 
-import exception.ValidationException;
+import interfaces.Observer;
+
+import java.util.List;
 
 public class InventoryFacade {
 
-    private final SupplierService supplierService = new SupplierServiceImpl();
-    private final TransaksiService transaksiService = new TransaksiServiceImpl();
-    private final BarangService barangService = new BarangServiceImpl();
+    private final SupplierService supplierService;
+    private final TransaksiService transaksiService;
+    private final BarangService barangService;
 
-    // Barang methods
+    public InventoryFacade() {
+        this.supplierService = new SupplierServiceImpl(new SupplierDAOImpl());
+        this.transaksiService = new TransaksiServiceImpl();
+        this.barangService = new BarangServiceImpl();
+    }
+    
     public void addBarang(Barang b) throws Exception {
         barangService.addBarang(b);
     }
@@ -57,7 +66,14 @@ public class InventoryFacade {
         return transaksiService.getAll();
     }
 
-    // Supplier methods
+    public void registerTransaksiObserver(Observer o) {
+        transaksiService.registerObserver(o);
+    }
+
+    public void removeTransaksiObserver(Observer o) {
+        transaksiService.removeObserver(o);
+    }
+
     public void addSupplier(Supplier s) throws Exception {
         supplierService.create(s);
     }
@@ -71,18 +87,19 @@ public class InventoryFacade {
     }
 
     public Supplier getSupplierById(int id) throws Exception {
-        return supplierService.getById(id);
+        return supplierService.findById(id);
     }
 
     public List<Supplier> listSupplier() throws Exception {
-        return supplierService.getAll();
-    }
-    
-    public void registerTransaksiObserver(Observer o) {
-        transaksiService.registerObserver(o);
+        return supplierService.findAll();
     }
 
-    public void removeTransaksiObserver(Observer o) {
-        transaksiService.removeObserver(o);
+    // Observer supplier
+    public void registerSupplierObserver(Observer o) {
+        supplierService.registerObserver(o);
+    }
+
+    public void removeSupplierObserver(Observer o) {
+        supplierService.removeObserver(o);
     }
 }

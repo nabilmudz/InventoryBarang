@@ -10,6 +10,8 @@ import java.util.List;
 
 public class SupplierController {
 
+    private static final String ERROR_PREFIX = "Error: ";
+
     @FXML
     private TextField txtNama;
 
@@ -81,7 +83,7 @@ public class SupplierController {
             clearForm();
 
         } catch (Exception e) {
-            lblStatus.setText("Error: " + e.getMessage());
+            lblStatus.setText(ERROR_PREFIX + e.getMessage());
         }
     }
 
@@ -105,7 +107,7 @@ public class SupplierController {
             clearForm();
 
         } catch (Exception e) {
-            lblStatus.setText("Error: " + e.getMessage());
+            lblStatus.setText(ERROR_PREFIX + e.getMessage());
         }
     }
 
@@ -124,7 +126,7 @@ public class SupplierController {
             clearForm();
 
         } catch (Exception e) {
-            lblStatus.setText("Error: " + e.getMessage());
+            lblStatus.setText(ERROR_PREFIX + e.getMessage());
         }
     }
 

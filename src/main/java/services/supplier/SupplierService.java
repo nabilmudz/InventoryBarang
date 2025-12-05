@@ -1,14 +1,18 @@
 package services.supplier;
 
+import interfaces.Subject;
 import models.Supplier;
 import java.util.List;
 
-public interface SupplierService {
-    void create(Supplier s) throws Exception;
-    void update(Supplier s) throws Exception;
+public interface SupplierService extends Subject {
+
+    void create(Supplier supplier) throws Exception;
+
+    void update(Supplier supplier) throws Exception;
+
     void delete(int id) throws Exception;
 
-    List<Supplier> getAll() throws Exception;
+    Supplier findById(int id) throws Exception;
 
-    Supplier getById(int id) throws Exception;
+    List<Supplier> findAll() throws Exception;
 }
