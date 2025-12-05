@@ -2,24 +2,30 @@ package services.transaksi;
 
 import dao.transaksi.TransaksiDAO;
 import dao.transaksi.TransaksiDAOImpl;
-
 import dao.barang.BarangDAO;
 import dao.barang.BarangDAOImpl;
-
 import exception.ValidationException;
+import interfaces.Observer;
 import models.Barang;
 import models.Transaksi;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import interfaces.Observer;
 
 public class TransaksiServiceImpl implements TransaksiService {
-
-    private final TransaksiDAO transaksiDAO = new TransaksiDAOImpl();
-    private final BarangDAO barangDAO       = new BarangDAOImpl();
+    private final TransaksiDAO transaksiDAO;
+    private final BarangDAO barangDAO;
     private final List<Observer> observers = new ArrayList<>();
+
+    public TransaksiServiceImpl() {
+        this(new TransaksiDAOImpl(), new BarangDAOImpl());
+    }
+
+    public TransaksiServiceImpl(TransaksiDAO transaksiDAO, BarangDAO barangDAO) {
+        this.transaksiDAO = transaksiDAO;
+        this.barangDAO = barangDAO;
+    }
 
     @Override
     public void registerObserver(Observer o) { observers.add(o); }
@@ -58,11 +64,9 @@ public class TransaksiServiceImpl implements TransaksiService {
 
         try {
             transaksiDAO.insert(t);
-
             int stokBaru = barang.getStok() + qty;
             barang.setStok(stokBaru);
             barangDAO.update(barang);
-
         } catch (Exception e) {
             throw new ValidationException("Gagal menyimpan transaksi MASUK: " + e.getMessage());
         }
@@ -101,11 +105,9 @@ public class TransaksiServiceImpl implements TransaksiService {
 
         try {
             transaksiDAO.insert(t);
-
             int stokBaru = barang.getStok() - qty;
             barang.setStok(stokBaru);
             barangDAO.update(barang);
-
         } catch (Exception e) {
             throw new ValidationException("Gagal menyimpan transaksi KELUAR: " + e.getMessage());
         }

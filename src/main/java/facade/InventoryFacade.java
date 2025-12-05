@@ -12,6 +12,7 @@ import services.transaksi.TransaksiServiceImpl;
 
 import services.barang.BarangService;
 import services.barang.BarangServiceImpl;
+import exception.InventoryException;
 import exception.ValidationException;
 import dao.supplier.SupplierDAOImpl;
 
@@ -31,23 +32,23 @@ public class InventoryFacade {
         this.barangService = new BarangServiceImpl();
     }
     
-    public void addBarang(Barang b) throws Exception {
+    public void addBarang(Barang b) {
         barangService.addBarang(b);
     }
 
-    public void updateBarang(Barang b) throws Exception {
+    public void updateBarang(Barang b) {
         barangService.updateBarang(b);
     }
 
-    public void deleteBarang(int id) throws Exception {
+    public void deleteBarang(int id) {
         barangService.deleteBarang(id);
     }
 
-    public Barang getBarangById(int id) throws Exception {
+    public Barang getBarangById(int id) {
         return barangService.getBarangById(id);
     }
 
-    public List<Barang> getAllBarang() throws Exception {
+    public List<Barang> getAllBarang() {
         return barangService.getAllBarang();
     }
 
@@ -61,7 +62,7 @@ public class InventoryFacade {
         return transaksiService.createKeluar(barangId, qty, userId, catatan);
     }
 
-    public List<Transaksi> listTransaksi() throws Exception {
+    public List<Transaksi> listTransaksi() throws InventoryException {
         return transaksiService.getAll();
     }
 
