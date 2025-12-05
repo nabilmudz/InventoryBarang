@@ -32,7 +32,7 @@ public class InventoryFacade {
         this.barangService = new BarangServiceImpl();
     }
     
-    public void addBarang(Barang b) {
+    public void addBarang(Barang b) throws Exception{
         barangService.create(b);
     }
 

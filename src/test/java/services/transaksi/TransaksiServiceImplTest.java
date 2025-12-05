@@ -42,7 +42,7 @@ class TransaksiServiceImplTest {
         barang.setId(barangId);
         barang.setStok(10);
 
-        when(barangDAO.getById(barangId)).thenReturn(barang);
+        when(barangDAO.findById(barangId)).thenReturn(barang);
 
         Observer o = mock(Observer.class);
         transaksiService.registerObserver(o);
@@ -64,7 +64,7 @@ class TransaksiServiceImplTest {
     //   CREATE MASUK - GAGAL (QTY <= 0)
     // ===========================
     @Test
-    void testCreateMasukFailQtyKurangSamaDenganNol() throws Exception{
+    void testCreateMasukFailQtyKurangSamaDenganNol() throws Exception {
         ValidationException ex = assertThrows(
                 ValidationException.class,
                 () -> transaksiService.createMasuk(1, 0, 1, "x")
@@ -82,7 +82,7 @@ class TransaksiServiceImplTest {
     void testCreateMasukFailBarangTidakDitemukan() throws Exception {
         int barangId = 99;
 
-        when(barangDAO.getById(barangId)).thenReturn(null);
+        when(barangDAO.findById(barangId)).thenReturn(null);
 
         ValidationException ex = assertThrows(
                 ValidationException.class,
@@ -108,7 +108,7 @@ class TransaksiServiceImplTest {
         barang.setId(barangId);
         barang.setStok(10);
 
-        when(barangDAO.getById(barangId)).thenReturn(barang);
+        when(barangDAO.findById(barangId)).thenReturn(barang);
 
         Observer o = mock(Observer.class);
         transaksiService.registerObserver(o);
@@ -130,14 +130,14 @@ class TransaksiServiceImplTest {
     //   CREATE KELUAR - GAGAL (STOK KURANG)
     // ===========================
     @Test
-    void testCreateKeluarFailStokTidakCukup()  throws Exception{
+    void testCreateKeluarFailStokTidakCukup() throws Exception {
         int barangId = 1;
 
         Barang barang = new Barang();
         barang.setId(barangId);
         barang.setStok(2);
 
-        when(barangDAO.getById(barangId)).thenReturn(barang);
+        when(barangDAO.findById(barangId)).thenReturn(barang);
 
         ValidationException ex = assertThrows(
                 ValidationException.class,
@@ -156,7 +156,7 @@ class TransaksiServiceImplTest {
     void testCreateKeluarFailBarangTidakDitemukan() throws Exception {
         int barangId = 99;
 
-        when(barangDAO.getById(barangId)).thenReturn(null);
+        when(barangDAO.findById(barangId)).thenReturn(null);
 
         ValidationException ex = assertThrows(
                 ValidationException.class,
