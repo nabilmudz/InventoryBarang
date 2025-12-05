@@ -8,7 +8,7 @@ import exception.InventoryException;
 import exception.ValidationException;
 
 public interface TransaksiService extends Subject {
-    void createMasuk(int barangId, int qty, Integer createdBy, String catatan) throws ValidationException;
-    void createKeluar(int barangId, int qty, Integer createdBy, String catatan) throws ValidationException;
+    Transaksi createMasuk(int barangId, int qty, Integer createdBy, String catatan) throws ValidationException;
+    Transaksi createKeluar(int barangId, int qty, Integer createdBy, String catatan) throws ValidationException;
     List<Transaksi> getAll() throws InventoryException;
 }

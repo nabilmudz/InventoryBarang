@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/21.0.2"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="ui.fx.login.LoginController"
+           alignment="CENTER"
+           prefWidth="500.0" prefHeight="400.0"
+           style="-fx-background-color: #f0f0f0;">
+
+    <VBox spacing="20.0"
+          maxWidth="350.0"
+          maxHeight="260.0"
+          style="-fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-radius: 5;
+                 -fx-background-color: white; -fx-padding: 30;">
+        <children>
+            <Label text="Login" textFill="#333333">
+                <font><Font name="System Bold" size="24.0"/></font>
+            </Label>
+
+            <Label text="Username" textFill="#666666">
+                <font><Font size="12.0"/></font>
+            </Label>
+            <TextField fx:id="usernameField"
+                       promptText="Masukkan username"
+                       prefHeight="35.0"
+                       style="-fx-font-size: 12; -fx-padding: 8;"/>
+
+            <Label text="Password" textFill="#666666">
+                <font><Font size="12.0"/></font>
+            </Label>
+            <PasswordField fx:id="passwordField"
+                           promptText="Masukkan password"
+                           prefHeight="35.0"
+                           style="-fx-font-size: 12; -fx-padding: 8;"/>
+
+            <Button fx:id="loginButton"
+                    text="Login"
+                    onAction="#handleLogin"
+                    prefHeight="40.0"
+                    maxWidth="Infinity"
+                    style="-fx-font-size: 14; -fx-cursor: hand;"/>
+
+            <Label fx:id="errorLabel" text="" textFill="red">
+                <font><Font size="11.0"/></font>
+            </Label>
+        </children>
+    </VBox>
+</StackPane>

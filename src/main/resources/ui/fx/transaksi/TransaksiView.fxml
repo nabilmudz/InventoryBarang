@@ -43,16 +43,31 @@
 
     <Separator/>
 
-    <TableView fx:id="tblTransaksi">
-        <columns>
-            <TableColumn fx:id="colId"       text="No"         prefWidth="50"/>
-            <TableColumn fx:id="colBarangId" text="ID Barang"  prefWidth="80"/>
-            <TableColumn fx:id="colQty"      text="Qty"        prefWidth="60"/>
-            <TableColumn fx:id="colJenis"    text="Jenis"      prefWidth="80"/>
-            <TableColumn fx:id="colTanggal"  text="Tanggal"    prefWidth="150"/>
-            <TableColumn fx:id="colCatatan"  text="Catatan"    prefWidth="200"/>
-        </columns>
-    </TableView>
+    <HBox spacing="10" VBox.vgrow="ALWAYS">
+        <VBox VBox.vgrow="ALWAYS">
+            <TableView fx:id="tblTransaksi" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colBarangId" text="ID Barang"  prefWidth="80"/>
+                    <TableColumn fx:id="colQty"      text="Qty"        prefWidth="60"/>
+                    <TableColumn fx:id="colJenis"    text="Jenis"      prefWidth="80"/>
+                    <TableColumn fx:id="colTanggal"  text="Tanggal"    prefWidth="150"/>
+                    <TableColumn fx:id="colCatatan"  text="Catatan"    prefWidth="200"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <VBox spacing="5" prefWidth="260">
+            <Label text="Struk Transaksi" style="-fx-font-weight: bold;"/>
+            <TextArea fx:id="txtStruk"
+                      editable="false"
+                      wrapText="true"
+                      prefRowCount="18"/>
+            <Button text="Print Struk"
+                    maxWidth="Infinity"
+                    onAction="#handlePrintStruk"/>
+        </VBox>
+
+    </HBox>
 
     <Label fx:id="lblStatus" textFill="red"/>
 

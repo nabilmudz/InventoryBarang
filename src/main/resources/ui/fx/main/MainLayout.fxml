@@ -8,7 +8,7 @@
             fx:controller="ui.fx.main.MainController">
 
 <left>
-        <VBox spacing="10" prefWidth="300" style="-fx-background-color: #2b2d42;">
+        <VBox spacing="10" prefWidth="250" style="-fx-background-color: #2b2d42;">
                 <padding>
                         <Insets top="20" right="10" bottom="20" left="10"/>
                 </padding>
@@ -17,14 +17,29 @@
                 
                 <Separator/>
                 
+                <Button text="Dashboard" maxWidth="Infinity"
+                        onAction="#showDashboard"
+                        styleClass="sidebar-button"/>
+
                 <Button text="Transaksi" maxWidth="Infinity"
-                        onAction="#showTransaksi" styleClass="sidebar-button"/>
-                
-                <Button text="Barang" maxWidth="Infinity" styleClass="sidebar-button"/>
+                        onAction="#showTransaksi"
+                        styleClass="sidebar-button"/>
+
+                <Button text="Barang" maxWidth="Infinity"
+                        onAction="#showBarang"
+                        styleClass="sidebar-button"/>
 
                 <Button text="Supplier" maxWidth="Infinity"
-                        onAction="#showSupplier" styleClass="sidebar-button"/>
-
+                        onAction="#showSupplier"
+                        styleClass="sidebar-button"/>
+                
+                <Region VBox.vgrow="ALWAYS"/>
+                
+                <Button text="Logout" maxWidth="Infinity"
+                        onAction="#logout"
+                        styleClass="sidebar-button"
+                        style="-fx-text-fill: #ff4d4d; -fx-font-weight: bold;"/>
+                
         </VBox>
 </left>
 

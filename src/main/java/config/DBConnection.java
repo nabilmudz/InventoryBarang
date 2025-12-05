@@ -9,6 +9,9 @@ public class DBConnection {
 
     private static DBConnection instance;
     private Connection connection;
+    private String url;
+    private String user;
+    private String pass;
 
     private DBConnection() {
         try {
@@ -21,12 +24,12 @@ public class DBConnection {
                 props.load(is);
             }
 
-            String url = props.getProperty("db.url");
-            String user = props.getProperty("db.user");
-            String pass = props.getProperty("db.password");
+            this.url = props.getProperty("db.url");
+            this.user = props.getProperty("db.user");
+            this.pass = props.getProperty("db.password");
 
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(url, user, pass);
+            connection = DriverManager.getConnection(this.url, this.user, this.pass);
 
         } catch (Exception e) {
             System.out.println("Database connection failed.");
@@ -42,6 +45,17 @@ public class DBConnection {
     }
 
     public Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(this.url, this.user, this.pass);
+            }
+        } catch (Exception e) {
+            try {
+                connection = DriverManager.getConnection(this.url, this.user, this.pass);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
         return connection;
     }
 }
